@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import Modal from '../../components/ui/Modal';
@@ -12,7 +12,10 @@ const VehicleInwardForm = ({ isOpen, onClose, inward, onSuccess }) => {
   const [loading, setLoading] = useState(false);
   const isEditing = !!inward;
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
+
+  const rawMaterialId = watch('raw_material_id');
+  const selectedRawMaterial = options.rawMaterials.find((rm) => rm.id === rawMaterialId);
 
   useEffect(() => {
     if (isOpen) {
@@ -52,6 +55,26 @@ const VehicleInwardForm = ({ isOpen, onClose, inward, onSuccess }) => {
     }
   };
 
+  // Belt-and-suspenders guard: the browser can trigger an implicit form
+  // submit from places other than a deliberate click on the Save button
+  // (Enter in a field, autofill accepting a suggestion, completing a
+  // datetime-local value, etc). Only allow the submit through if it was
+  // set in motion by an explicit interaction with the Save button itself.
+  const submitIntentRef = useRef(false);
+
+  const armSubmit = () => {
+    submitIntentRef.current = true;
+  };
+
+  const guardedSubmit = (e) => {
+    if (!submitIntentRef.current) {
+      e.preventDefault();
+      return;
+    }
+    submitIntentRef.current = false;
+    return handleSubmit(onSubmit)(e);
+  };
+
   const onSubmit = async (data) => {
     try {
       setLoading(true);
@@ -78,7 +101,7 @@ const VehicleInwardForm = ({ isOpen, onClose, inward, onSuccess }) => {
       title={isEditing ? "Edit Vehicle Inward" : "New Vehicle Inward"}
       size="lg"
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={guardedSubmit}>
         <div className="form-grid">
           <InputField 
             label="Vehicle Number" 
@@ -123,10 +146,11 @@ const VehicleInwardForm = ({ isOpen, onClose, inward, onSuccess }) => {
             {isEditing && <span style={{fontSize: '0.75rem', color: 'var(--color-muted)'}}>Cannot change material for existing inward.</span>}
           </div>
 
-          <InputField 
-            label="Quantity Received" 
+          <InputField
+            label="Quantity Received"
             type="number"
             step="0.01"
+            unit={selectedRawMaterial?.unit}
             error={errors.quantity_received?.message}
             {...register('quantity_received', { required: 'Quantity is required', min: 0.01 })}
           />
@@ -179,7 +203,7 @@ const VehicleInwardForm = ({ isOpen, onClose, inward, onSuccess }) => {
 
         <div className="form-actions">
           <Button variant="secondary" onClick={onClose} disabled={loading}>Cancel</Button>
-          <Button variant="primary" type="submit" disabled={loading}>
+          <Button variant="primary" type="submit" onClick={armSubmit} disabled={loading}>
             {loading ? 'Saving...' : 'Save Inward'}
           </Button>
         </div>

@@ -8,11 +8,15 @@ import { createProduction, updateProduction } from '../../services/productionSer
 import { fetchMasterOptions } from '../../services/masterService';
 
 const ProductionForm = ({ isOpen, onClose, production, onSuccess }) => {
-  const [options, setOptions] = useState({ rawMaterials: [], readyMaterials: [] });
+  const [formulas, setFormulas] = useState([]);
   const [loading, setLoading] = useState(false);
   const isEditing = !!production;
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
+
+  const formulaId = watch('formula_id');
+  const quantityProduced = watch('quantity_produced');
+  const selectedFormula = formulas.find((f) => f.id === formulaId);
 
   useEffect(() => {
     if (isOpen) {
@@ -27,12 +31,10 @@ const ProductionForm = ({ isOpen, onClose, production, onSuccess }) => {
         reset({
           batch_number: '',
           production_date: new Date().toISOString().slice(0, 16),
-          shift: 'Day',
+          shift: 'Morning',
           operator_name: '',
           machine: '',
-          raw_material_id: '',
-          ready_material_id: '',
-          quantity_used: '',
+          formula_id: '',
           quantity_produced: '',
           remarks: ''
         });
@@ -43,20 +45,30 @@ const ProductionForm = ({ isOpen, onClose, production, onSuccess }) => {
   const loadOptions = async () => {
     try {
       const data = await fetchMasterOptions();
-      setOptions({ rawMaterials: data.rawMaterials, readyMaterials: data.readyMaterials });
+      setFormulas(data.formulas || []);
     } catch (error) {
-      toast.error('Failed to load material options');
+      toast.error('Failed to load formula options');
     }
   };
 
   const onSubmit = async (data) => {
     try {
       setLoading(true);
+      const payload = {
+        batch_number: data.batch_number,
+        production_date: data.production_date,
+        shift: data.shift,
+        operator_name: data.operator_name,
+        machine: data.machine,
+        formula_id: data.formula_id,
+        quantity_produced: data.quantity_produced,
+        remarks: data.remarks
+      };
       if (isEditing) {
-        await updateProduction(production.id, data);
+        await updateProduction(production.id, payload);
         toast.success('Production batch updated');
       } else {
-        await createProduction(data);
+        await createProduction(payload);
         toast.success('Production batch created');
       }
       onSuccess();
@@ -68,104 +80,124 @@ const ProductionForm = ({ isOpen, onClose, production, onSuccess }) => {
     }
   };
 
+  // Pressing Enter inside a text/number/date input would otherwise submit
+  // the form as soon as the required fields are filled, closing the modal
+  // before the user reaches the rest of the fields.
+  const preventEnterSubmit = (e) => {
+    if (e.key === 'Enter' && (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT')) {
+      e.preventDefault();
+    }
+  };
+
+  // quantityProduced is a bag count; convert to tons via the ready material's
+  // pack size before scaling the formula (which is defined per ton).
+  const producedTons = selectedFormula && quantityProduced
+    ? (parseFloat(quantityProduced) * parseFloat(selectedFormula.pack_size_kg)) / 1000
+    : 0;
+  const scale = selectedFormula && quantityProduced
+    ? producedTons / parseFloat(selectedFormula.output_quantity)
+    : 0;
+
   return (
-    <Modal 
-      isOpen={isOpen} 
-      onClose={onClose} 
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
       title={isEditing ? "Edit Production Batch" : "New Production Batch"}
       size="lg"
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} onKeyDown={preventEnterSubmit}>
         <div className="form-grid">
-          <InputField 
-            label="Batch Number" 
+          <InputField
+            label="Batch Number"
             placeholder="e.g. BATCH-001"
             error={errors.batch_number?.message}
             {...register('batch_number', { required: 'Batch number is required' })}
           />
-          <InputField 
-            label="Production Date" 
+          <InputField
+            label="Production Date"
             type="datetime-local"
             error={errors.production_date?.message}
             {...register('production_date', { required: 'Date is required' })}
           />
-          
+
           <div className="input-group">
             <label className="input-label">Shift</label>
-            <select 
+            <select
               className="input-field"
               {...register('shift', { required: 'Shift is required' })}
             >
-              <option value="Day">Day Shift</option>
+              <option value="Morning">Morning Shift</option>
+              <option value="Evening">Evening Shift</option>
               <option value="Night">Night Shift</option>
             </select>
             {errors.shift && <span className="input-error-text">{errors.shift.message}</span>}
           </div>
 
-          <InputField 
-            label="Operator Name" 
+          <InputField
+            label="Operator Name"
             placeholder="Optional"
             {...register('operator_name')}
           />
-          
-          <InputField 
-            label="Machine" 
+
+          <InputField
+            label="Machine"
             placeholder="Optional"
             {...register('machine')}
           />
         </div>
 
-        <h3 style={{ margin: '1.5rem 0 1rem', fontSize: '1.1rem', color: 'var(--color-brand-800)' }}>Materials</h3>
-        
+        <h3 style={{ margin: '1.5rem 0 1rem', fontSize: '1.1rem', color: 'var(--color-brand-800)' }}>Formula</h3>
+
         <div className="form-grid">
           <div className="input-group">
-            <label className="input-label">Raw Material Used</label>
-            <select 
+            <label className="input-label">Formula</label>
+            <select
               className="input-field"
-              {...register('raw_material_id', { required: 'Raw Material is required' })}
+              {...register('formula_id', { required: 'Formula is required' })}
               disabled={isEditing}
             >
-              <option value="">Select Raw Material</option>
-              {options.rawMaterials.map(rm => (
-                <option key={rm.id} value={rm.id}>{rm.name} ({rm.unit})</option>
+              <option value="">Select Formula</option>
+              {formulas.map((f) => (
+                <option key={f.id} value={f.id}>{f.name} &rarr; {f.ready_material_name} ({f.ready_material_unit})</option>
               ))}
             </select>
-            {errors.raw_material_id && <span className="input-error-text">{errors.raw_material_id.message}</span>}
+            {errors.formula_id && <span className="input-error-text">{errors.formula_id.message}</span>}
           </div>
 
-          <InputField 
-            label="Quantity Used" 
-            type="number" step="0.01"
-            error={errors.quantity_used?.message}
-            {...register('quantity_used', { required: 'Required', min: 0.01 })}
-          />
-
-          <div className="input-group">
-            <label className="input-label">Ready Material Produced</label>
-            <select 
-              className="input-field"
-              {...register('ready_material_id', { required: 'Ready Material is required' })}
-              disabled={isEditing}
-            >
-              <option value="">Select Ready Material</option>
-              {options.readyMaterials.map(rm => (
-                <option key={rm.id} value={rm.id}>{rm.name} ({rm.unit})</option>
-              ))}
-            </select>
-            {errors.ready_material_id && <span className="input-error-text">{errors.ready_material_id.message}</span>}
-          </div>
-
-          <InputField 
-            label="Quantity Produced" 
-            type="number" step="0.01"
+          <InputField
+            label="Quantity Produced"
+            type="number" step="1"
+            unit={selectedFormula?.ready_material_unit}
             error={errors.quantity_produced?.message}
             {...register('quantity_produced', { required: 'Required', min: 0.01 })}
           />
         </div>
 
+        {selectedFormula && (
+          <div style={{ marginTop: '1rem', padding: '0.75rem 1rem', background: 'var(--color-brand-50)', borderRadius: '8px' }}>
+            <div style={{ fontWeight: 600, marginBottom: '0.5rem' }}>Raw materials required</div>
+            {!quantityProduced ? (
+              <div style={{ color: 'var(--color-muted)', fontSize: '0.9rem' }}>Enter quantity produced to see the breakdown.</div>
+            ) : (
+              <>
+                <div style={{ fontSize: '0.85rem', color: 'var(--color-muted)', marginBottom: '0.4rem' }}>
+                  = {producedTons.toFixed(2)} t of {selectedFormula.ready_material_name}
+                </div>
+                <ul style={{ margin: 0, paddingLeft: '1.2rem' }}>
+                  {selectedFormula.ingredients.map((ing) => (
+                    <li key={ing.raw_material_id}>
+                      {ing.raw_material_name}: {(parseFloat(ing.quantity) * scale).toFixed(2)} t
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        )}
+
         <div style={{ marginTop: '1rem' }}>
-          <InputField 
-            label="Remarks" 
+          <InputField
+            label="Remarks"
             placeholder="Any additional notes..."
             {...register('remarks')}
           />

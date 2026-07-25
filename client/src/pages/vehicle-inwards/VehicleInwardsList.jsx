@@ -48,7 +48,17 @@ const VehicleInwardsList = () => {
     { header: 'Vehicle No', accessor: 'vehicle_number' },
     { header: 'Supplier', accessor: 'supplier_name' },
     { header: 'Material', accessor: 'raw_material_name' },
-    { header: 'Qty (kg)', accessor: 'quantity_received', align: 'right' },
+    {
+      header: 'Quantity Received',
+      accessor: 'quantity_received',
+      align: 'right',
+      cell: (row) => (
+        <>
+          {row.quantity_received}
+          {row.raw_material_unit && <span className="unit-badge">{row.raw_material_unit}</span>}
+        </>
+      )
+    },
     { 
       header: 'Entry Time', 
       accessor: 'entry_time',

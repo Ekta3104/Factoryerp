@@ -12,7 +12,10 @@ const DispatchForm = ({ isOpen, onClose, dispatchRecord, onSuccess }) => {
   const [loading, setLoading] = useState(false);
   const isEditing = !!dispatchRecord;
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
+
+  const readyMaterialId = watch('ready_material_id');
+  const selectedReadyMaterial = options.readyMaterials.find((rm) => rm.id === readyMaterialId);
 
   useEffect(() => {
     if (isOpen) {
@@ -66,14 +69,23 @@ const DispatchForm = ({ isOpen, onClose, dispatchRecord, onSuccess }) => {
     }
   };
 
+  // Pressing Enter inside a text/number/date input would otherwise submit
+  // the form as soon as the required fields are filled, closing the modal
+  // before the user reaches the rest of the fields.
+  const preventEnterSubmit = (e) => {
+    if (e.key === 'Enter' && (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT')) {
+      e.preventDefault();
+    }
+  };
+
   return (
-    <Modal 
-      isOpen={isOpen} 
-      onClose={onClose} 
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
       title={isEditing ? "Edit Dispatch" : "New Dispatch"}
       size="lg"
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} onKeyDown={preventEnterSubmit}>
         <div className="form-grid">
           <div className="input-group">
             <label className="input-label">Customer</label>
@@ -117,9 +129,10 @@ const DispatchForm = ({ isOpen, onClose, dispatchRecord, onSuccess }) => {
             {...register('driver_name')}
           />
           
-          <InputField 
-            label="Quantity Dispatched" 
+          <InputField
+            label="Quantity Dispatched"
             type="number" step="0.01"
+            unit={selectedReadyMaterial?.unit}
             error={errors.quantity_dispatched?.message}
             {...register('quantity_dispatched', { required: 'Quantity is required', min: 0.01 })}
           />

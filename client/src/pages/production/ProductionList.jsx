@@ -52,8 +52,7 @@ const ProductionList = () => {
       cell: (row) => new Date(row.production_date).toLocaleString('en-IN')
     },
     { header: 'Shift', accessor: 'shift' },
-    { header: 'Raw Material', accessor: 'raw_material_name' },
-    { header: 'Qty Used', accessor: 'quantity_used', align: 'right' },
+    { header: 'Formula', accessor: 'formula_name' },
     { header: 'Ready Material', accessor: 'ready_material_name' },
     { header: 'Qty Produced', accessor: 'quantity_produced', align: 'right' },
     {

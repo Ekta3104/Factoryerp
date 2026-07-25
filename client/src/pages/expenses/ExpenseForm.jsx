@@ -53,14 +53,23 @@ const ExpenseForm = ({ isOpen, onClose, expense, onSuccess }) => {
     }
   };
 
+  // Pressing Enter inside a text/number/date input would otherwise submit
+  // the form as soon as the required fields are filled, closing the modal
+  // before the user reaches the rest of the fields.
+  const preventEnterSubmit = (e) => {
+    if (e.key === 'Enter' && (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT')) {
+      e.preventDefault();
+    }
+  };
+
   return (
-    <Modal 
-      isOpen={isOpen} 
-      onClose={onClose} 
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
       title={isEditing ? "Edit Expense" : "New Expense"}
       size="md"
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} onKeyDown={preventEnterSubmit}>
         <div className="form-grid" style={{ gridTemplateColumns: '1fr' }}>
           
           <div className="input-group">
