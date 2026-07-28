@@ -166,10 +166,11 @@ export const getVehicleInwardsList = async (queryParams) => {
   const offset = (page - 1) * limit;
 
   let query = `
-    SELECT v.*, s.name as supplier_name, r.name as raw_material_name
+    SELECT v.*, s.name as supplier_name, r.name as raw_material_name, u.name as raw_material_unit
     FROM vehicle_inwards v
     LEFT JOIN suppliers s ON v.supplier_id = s.id
     LEFT JOIN raw_materials r ON v.raw_material_id = r.id
+    LEFT JOIN units u ON r.unit_id = u.id
     WHERE 1=1
   `;
   const values = [];
