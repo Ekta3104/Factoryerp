@@ -20,7 +20,8 @@ const generateToken = (id, role) => {
 };
 
 /**
- * Attaches the JWT as an HTTP-only, Secure, SameSite=Strict cookie.
+ * Attaches the JWT as an HTTP-only, Secure cookie (SameSite=None in production
+ * for cross-site client/API domains, Strict in development).
  *
  * @param {Object} res          - Express response object
  * @param {string} token        - Signed JWT string
@@ -30,7 +31,7 @@ const setTokenCookie = (res, token, maxAgeMs = 24 * 60 * 60 * 1000) => {
   res.cookie('jwt', token, {
     httpOnly: true,                                  // Not accessible via JS
     secure: config.nodeEnv === 'production',         // HTTPS only in production
-    sameSite: 'strict',                              // CSRF protection
+    sameSite: config.nodeEnv === 'production' ? 'none' : 'strict', // 'none' required for cross-site client/API domains
     maxAge: maxAgeMs,
   });
 };
@@ -102,7 +103,7 @@ export const logout = (req, res) => {
   res.cookie('jwt', '', {
     httpOnly: true,
     secure: config.nodeEnv === 'production',
-    sameSite: 'strict',
+    sameSite: config.nodeEnv === 'production' ? 'none' : 'strict',
     expires: new Date(0),    // Epoch 0 — browser drops it immediately
   });
 

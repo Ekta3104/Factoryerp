@@ -9,6 +9,7 @@ export const pool = new Pool({
   host: config.db.host,
   port: config.db.port,
   database: config.db.database,
+  ssl: config.nodeEnv === 'production' ? { rejectUnauthorized: false } : false,
 });
 
 export const connectDB = async () => {
