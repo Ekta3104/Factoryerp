@@ -45,13 +45,33 @@ export const getDashboardData = async () => {
     raw_material_name: m.raw_material_name,
     closing_stock:     m.closing_stock,
     reorder_level:     m.reorder_level,
+    unit:              m.unit,
   }));
+
+  // Raw material wise stock — current closing stock per material
+  const rawMaterialStock = todayReport.inventory.raw_materials
+    .map((m) => ({
+      raw_material_id:   m.raw_material_id,
+      raw_material_name: m.raw_material_name,
+      closing_stock:     parseFloat(m.closing_stock || 0),
+      reorder_level:     parseFloat(m.reorder_level || 0),
+      unit:              m.unit,
+    }))
+    .sort((a, b) => b.closing_stock - a.closing_stock);
+
+  // Unit used for the aggregate stock KPIs — taken from the first material
+  // (materials are expected to share a common stock unit; a mixed-unit sum
+  // would already be meaningless before this label is applied)
+  const rawMaterialUnit   = todayReport.inventory.raw_materials[0]?.unit || '';
+  const readyMaterialUnit = todayReport.inventory.ready_materials[0]?.unit || '';
 
   return {
     generated_at: new Date().toISOString(),
     kpis: {
       current_raw_material_stock:   currentRawStock,
+      current_raw_material_unit:    rawMaterialUnit,
       current_ready_material_stock: currentReadyStock,
+      current_ready_material_unit:  readyMaterialUnit,
       today_vehicle_inward_count:   parseInt(todayReport.vehicle_inward.summary.total_vehicles   || 0),
       today_raw_material_received:  parseFloat(todayReport.vehicle_inward.summary.total_weight_received || 0),
       today_production_quantity:    todayProductionQty,
@@ -59,6 +79,7 @@ export const getDashboardData = async () => {
       today_total_expenses:         parseFloat(todayReport.expenses.totals.total_amount            || 0),
       current_month_total_expenses: parseFloat(monthReport.expenses.totals.total_amount           || 0),
       low_stock_alerts:             lowStockAlerts,
+      raw_material_stock:           rawMaterialStock,
     },
     trends: {
       last_7_days_production: trends.production,

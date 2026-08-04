@@ -18,8 +18,10 @@ export const ReportModel = {
           $2::timestamptz AS end_date
       ),
       raw_materials_list AS (
-        SELECT id, name, reorder_level FROM raw_materials
-        WHERE ($3::uuid IS NULL OR id = $3::uuid)
+        SELECT r.id, r.name, r.reorder_level, u.name AS unit
+        FROM raw_materials r
+        LEFT JOIN units u ON r.unit_id = u.id
+        WHERE ($3::uuid IS NULL OR r.id = $3::uuid)
       ),
       opening_inward AS (
         SELECT raw_material_id, COALESCE(SUM(quantity_received), 0) AS qty
@@ -50,6 +52,7 @@ export const ReportModel = {
     SELECT
       rm.id AS raw_material_id,
       rm.name AS raw_material_name,
+      rm.unit,
       rm.reorder_level,
       COALESCE(oi.qty, 0) - COALESCE(ou.qty, 0)                         AS opening_stock,
       COALESCE(pi_d.qty, 0)                                              AS received_in_period,
@@ -76,8 +79,10 @@ export const ReportModel = {
           $2::timestamptz AS end_date
       ),
       ready_materials_list AS (
-        SELECT id, name FROM ready_materials
-        WHERE ($3::uuid IS NULL OR id = $3::uuid)
+        SELECT r.id, r.name, u.name AS unit
+        FROM ready_materials r
+        LEFT JOIN units u ON r.unit_id = u.id
+        WHERE ($3::uuid IS NULL OR r.id = $3::uuid)
       ),
       opening_produced AS (
         SELECT ready_material_id, COALESCE(SUM(quantity_produced), 0) AS qty
@@ -108,6 +113,7 @@ export const ReportModel = {
     SELECT
       rm.id AS ready_material_id,
       rm.name AS ready_material_name,
+      rm.unit,
       COALESCE(op.qty, 0) - COALESCE(od.qty, 0)                         AS opening_stock,
       COALESCE(pp.qty, 0)                                                AS produced_in_period,
       COALESCE(pd_d.qty, 0)                                              AS dispatched_in_period,

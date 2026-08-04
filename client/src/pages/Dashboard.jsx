@@ -66,34 +66,34 @@ const Dashboard = () => {
       </div>
 
       <div className="dashboard-grid">
-        <StatCard 
+        <StatCard
           title="Raw Material Stock"
           value={formatNumber(kpis.current_raw_material_stock)}
-          unit="kg"
+          unit={kpis.current_raw_material_unit || 'kg'}
           icon={<RiStockLine />}
         />
-        <StatCard 
+        <StatCard
           title="Ready Material Stock"
           value={formatNumber(kpis.current_ready_material_stock)}
-          unit="kg"
+          unit={kpis.current_ready_material_unit || 'kg'}
           icon={<RiStockLine />}
         />
-        <StatCard 
+        <StatCard
           title="Today's Production"
           value={formatNumber(kpis.today_production_quantity)}
-          unit="kg"
+          unit={kpis.current_ready_material_unit || 'kg'}
           icon={<RiSettings4Line />}
         />
-        <StatCard 
+        <StatCard
           title="Today's Dispatches"
           value={formatNumber(kpis.today_dispatch_quantity)}
-          unit="kg"
+          unit={kpis.current_ready_material_unit || 'kg'}
           icon={<RiSendPlaneLine />}
         />
-        <StatCard 
+        <StatCard
           title="Today's Inwards"
           value={formatNumber(kpis.today_raw_material_received)}
-          unit="kg"
+          unit={kpis.current_raw_material_unit || 'kg'}
           icon={<RiTruckLine />}
           trend={`${kpis.today_vehicle_inward_count} vehicles`}
         />
@@ -152,7 +152,7 @@ const Dashboard = () => {
                   <div className="low-stock-info">
                     <span className="low-stock-name">{item.raw_material_name}</span>
                     <span className="low-stock-numbers">
-                      Current: {item.closing_stock} kg (Reorder: {item.reorder_level} kg)
+                      Current: {item.closing_stock} {item.unit || 'kg'} (Reorder: {item.reorder_level} {item.unit || 'kg'})
                     </span>
                   </div>
                 </div>
@@ -165,6 +165,50 @@ const Dashboard = () => {
             </div>
           )}
         </div>
+      </div>
+
+      {/* Raw Material Wise Stock */}
+      <div className="dashboard-panel" style={{ marginTop: '1.5rem' }}>
+        <div className="dashboard-panel-header">
+          <h2 className="dashboard-panel-title">Raw Material Wise Stock</h2>
+        </div>
+
+        {kpis.raw_material_stock && kpis.raw_material_stock.length > 0 ? (
+          <div style={{ overflowX: 'auto' }}>
+            <table className="rm-stock-table">
+              <thead>
+                <tr>
+                  <th>Raw Material</th>
+                  <th>Current Stock</th>
+                  <th>Reorder Level</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {kpis.raw_material_stock.map(item => {
+                  const isLow = item.closing_stock <= item.reorder_level;
+                  const unit = item.unit || 'kg';
+                  return (
+                    <tr key={item.raw_material_id}>
+                      <td>{item.raw_material_name}</td>
+                      <td>{formatNumber(item.closing_stock)} {unit}</td>
+                      <td>{formatNumber(item.reorder_level)} {unit}</td>
+                      <td>
+                        <span className={`rm-stock-badge ${isLow ? 'rm-stock-badge-low' : 'rm-stock-badge-ok'}`}>
+                          {isLow ? 'Low' : 'OK'}
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div style={{ textAlign: 'center', padding: '2rem 0', color: 'var(--color-muted)' }}>
+            <p>No raw material stock data available.</p>
+          </div>
+        )}
       </div>
     </div>
   );
