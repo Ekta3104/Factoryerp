@@ -91,10 +91,11 @@ const ProductionForm = ({ isOpen, onClose, production, onSuccess }) => {
 
   // quantityProduced is a bag count; convert to tons via the ready material's
   // pack size before scaling the formula (which is defined per ton).
-  const producedTons = selectedFormula && quantityProduced
-    ? (parseFloat(quantityProduced) * parseFloat(selectedFormula.pack_size_kg)) / 1000
+  const packSize = selectedFormula?.pack_size_kg ? parseFloat(selectedFormula.pack_size_kg) : 0;
+  const producedTons = selectedFormula && quantityProduced && packSize
+    ? (parseFloat(quantityProduced) * packSize) / 1000
     : 0;
-  const scale = selectedFormula && quantityProduced
+  const scale = selectedFormula && quantityProduced && parseFloat(selectedFormula.output_quantity) > 0
     ? producedTons / parseFloat(selectedFormula.output_quantity)
     : 0;
 

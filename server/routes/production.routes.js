@@ -9,14 +9,14 @@ const router = express.Router();
 const productionValidationRules = [
   check('production_date', 'Valid production date is required').isISO8601(),
   check('shift', 'Shift must be Morning, Evening, or Night').isIn(['Morning', 'Evening', 'Night']),
-  check('operator_name', 'Operator name is required').notEmpty(),
-  check('machine', 'Machine name is required').notEmpty(),
-  check('formula_id', 'Valid Formula UUID is required').optional().isUUID(),
-  check('raw_material_id', 'Valid Raw Material UUID is required').optional().isUUID(),
-  check('ready_material_id', 'Valid Ready Material UUID is required').optional().isUUID(),
-  check('quantity_used', 'Quantity used must be a positive number').optional().isFloat({ min: 0.01 }),
+  check('operator_name').optional({ checkFalsy: true }).isString(),
+  check('machine').optional({ checkFalsy: true }).isString(),
+  check('formula_id', 'Valid Formula UUID is required').optional({ checkFalsy: true }).isUUID(),
+  check('raw_material_id', 'Valid Raw Material UUID is required').optional({ checkFalsy: true }).isUUID(),
+  check('ready_material_id', 'Valid Ready Material UUID is required').optional({ checkFalsy: true }).isUUID(),
+  check('quantity_used', 'Quantity used must be a positive number').optional({ checkFalsy: true }).isFloat({ min: 0.01 }),
   check('quantity_produced', 'Quantity produced must be a positive number').isFloat({ min: 0.01 }),
-  check('remarks').optional().isString(),
+  check('remarks').optional({ checkFalsy: true }).isString(),
   check('formula_id').custom((value, { req }) => {
     const hasFormula = Boolean(value);
     const hasSingleMaterial = Boolean(req.body.raw_material_id) && Boolean(req.body.quantity_used);

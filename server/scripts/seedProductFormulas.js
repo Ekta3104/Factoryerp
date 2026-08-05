@@ -16,18 +16,23 @@ async function run() {
     await client.query(`DELETE FROM ready_materials WHERE name IN ('Finished Product X', 'Finished Product Y')`);
     console.log('Removed placeholder demo ready materials.');
 
-    const tonUnit = await client.query(`SELECT id FROM units WHERE abbreviation = 't'`);
-    const tonId = tonUnit.rows[0].id;
+    const bagUnit = await client.query(`SELECT id FROM units WHERE abbreviation = 'bag' OR name = 'Bags'`);
+    const bagId = bagUnit.rows[0].id;
 
-    // Ready materials
-    const readyMaterials = ['Gypsum Powder (25Kg Pack)', 'Gold Suryadarshan (10Kg Pack)'];
-    for (const name of readyMaterials) {
+    // Ready materials with pack_size_kg
+    const readyMaterials = [
+      { name: 'Gypsum Powder (25Kg Pack)', packSizeKg: 25.00 },
+      { name: 'Gold Suryadarshan (10Kg Pack)', packSizeKg: 10.00 }
+    ];
+    for (const rm of readyMaterials) {
       await client.query(
-        `INSERT INTO ready_materials (name, unit_id) SELECT $1::varchar, $2::uuid WHERE NOT EXISTS (SELECT 1 FROM ready_materials WHERE name = $1::varchar)`,
-        [name, tonId]
+        `INSERT INTO ready_materials (name, unit_id, pack_size_kg) 
+         VALUES ($1, $2, $3) 
+         ON CONFLICT (name) DO UPDATE SET unit_id = $2, pack_size_kg = $3`,
+        [rm.name, bagId, rm.packSizeKg]
       );
     }
-    console.log('Ready materials added:', readyMaterials);
+    console.log('Ready materials added/updated with pack sizes:', readyMaterials);
 
     // Raw material lookups
     const rawIds = {};
