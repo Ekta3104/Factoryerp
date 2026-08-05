@@ -17,7 +17,7 @@ const formattedCorsOrigin = config.corsOrigin
 
 // Global Middlewares
 app.use(helmet()); // Set security HTTP headers
-app.use(cors({ origin: config.corsOrigin, credentials: true })); // Enable CORS
+app.use(cors({ origin: formattedCorsOrigin, credentials: true })); // Enable CORS
 app.use(express.json()); // Parse JSON payloads
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(cookieParser()); // Parse cookies
