@@ -80,16 +80,20 @@ const ExpenseList = () => {
       header: 'Actions',
       align: 'right',
       cell: (row) => (
-        <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-          <button 
+        <div className="table-actions">
+          <button
             onClick={() => handleEdit(row)}
-            style={{ background: 'none', border: 'none', color: 'var(--color-brand-600)', cursor: 'pointer' }}
+            className="icon-action-btn"
+            aria-label="Edit expense"
+            title="Edit"
           >
             <RiEdit2Line size={18} />
           </button>
-          <button 
+          <button
             onClick={() => handleDelete(row.id, !!row.entity_type)}
-            style={{ background: 'none', border: 'none', color: 'var(--color-error)', cursor: 'pointer' }}
+            className="icon-action-btn icon-action-btn--danger"
+            aria-label="Delete expense"
+            title="Delete"
           >
             <RiDeleteBinLine size={18} />
           </button>
@@ -100,7 +104,7 @@ const ExpenseList = () => {
 
   return (
     <div>
-      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="page-header">
         <h1 className="page-title">Expenses</h1>
         <Button variant="primary" onClick={() => { setEditingExpense(null); setIsFormOpen(true); }}>
           <RiAddLine size={20} />
@@ -109,7 +113,10 @@ const ExpenseList = () => {
       </div>
 
       {loading ? (
-        <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-muted)' }}>Loading...</div>
+        <div className="loading-state">
+          <div className="spinner"></div>
+          <p>Loading expenses...</p>
+        </div>
       ) : (
         <Table columns={columns} data={data} keyField="id" />
       )}

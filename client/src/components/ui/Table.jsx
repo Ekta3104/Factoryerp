@@ -1,10 +1,14 @@
+import { RiInboxLine } from 'react-icons/ri';
 import './ui.css';
 
 const Table = ({ columns, data, keyField = 'id', onRowClick }) => {
   if (!data || data.length === 0) {
     return (
       <div className="table-empty-state">
-        <p>No data available</p>
+        <span className="table-empty-state-icon" aria-hidden="true">
+          <RiInboxLine />
+        </span>
+        <p>No data available yet</p>
       </div>
     );
   }

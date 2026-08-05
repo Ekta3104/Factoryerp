@@ -1,11 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import { 
-  RiDashboardLine, 
-  RiTruckLine, 
-  RiSettings4Line, 
-  RiSendPlaneLine, 
-  RiMoneyDollarCircleLine, 
-  RiFileList3Line 
+import {
+  RiDashboardLine,
+  RiTruckLine,
+  RiSettings4Line,
+  RiSendPlaneLine,
+  RiMoneyDollarCircleLine,
+  RiFileList3Line,
+  RiCloseLine,
 } from 'react-icons/ri';
 
 const navItems = [
@@ -17,32 +18,50 @@ const navItems = [
   { path: '/reports', label: 'Reports', icon: <RiFileList3Line className="sidebar-link-icon" /> },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen = false, onClose = () => {} }) => {
   return (
-    <aside className="app-sidebar">
-      <div className="sidebar-header">
-        FactoryERP
-      </div>
-      
-      <nav className="sidebar-nav">
-        {navItems.map((item) => (
-          <NavLink 
-            key={item.path} 
-            to={item.path}
-            className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
-          >
-            {item.icon}
-            <span>{item.label}</span>
-          </NavLink>
-        ))}
-      </nav>
+    <>
+      {/* Mobile backdrop — click to close the drawer */}
+      <div
+        className={`sidebar-backdrop ${isOpen ? 'is-visible' : ''}`}
+        onClick={onClose}
+        aria-hidden="true"
+      />
 
-      <div className="sidebar-footer">
-        <div style={{ fontSize: '0.8rem', color: '#94a3b8', textAlign: 'center' }}>
-          v1.0.0
+      <aside className={`app-sidebar ${isOpen ? 'is-open' : ''}`}>
+        <div className="sidebar-header">
+          <span className="sidebar-header-icon" aria-hidden="true">
+            <RiSettings4Line />
+          </span>
+          FactoryERP
+          <button
+            className="sidebar-close-btn"
+            onClick={onClose}
+            aria-label="Close navigation menu"
+          >
+            <RiCloseLine size={22} />
+          </button>
         </div>
-      </div>
-    </aside>
+
+        <nav className="sidebar-nav">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              onClick={onClose}
+              className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
+            >
+              {item.icon}
+              <span>{item.label}</span>
+            </NavLink>
+          ))}
+        </nav>
+
+        <div className="sidebar-footer">
+          <div className="sidebar-version">v1.0.0</div>
+        </div>
+      </aside>
+    </>
   );
 };
 

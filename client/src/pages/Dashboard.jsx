@@ -13,6 +13,7 @@ import {
 import { fetchDashboardData } from '../services/dashboardService';
 import StatCard from '../components/dashboard/StatCard';
 import '../components/dashboard/Dashboard.css';
+import '../components/ui/ui.css';
 
 const Dashboard = () => {
   const [data, setData] = useState(null);
@@ -45,7 +46,8 @@ const Dashboard = () => {
 
   if (error) {
     return (
-      <div style={{ color: 'var(--color-error)', padding: '2rem', textAlign: 'center' }}>
+      <div className="inline-error-state">
+        <RiAlertLine size={32} />
         <h3>Error loading dashboard</h3>
         <p>{error}</p>
       </div>

@@ -19,6 +19,10 @@
   cursor: not-allowed;
 }
 
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
 .btn-primary {
   background-color: var(--color-brand-600);
   color: #fff;
@@ -50,6 +54,95 @@
 .btn-danger:hover:not(:disabled) {
   background-color: #dc2626;
   transform: translateY(-1px);
+}
+
+.btn-success {
+  background-color: var(--color-success);
+  color: #fff;
+}
+
+.btn-success:hover:not(:disabled) {
+  background-color: #16a34a;
+  transform: translateY(-1px);
+}
+
+/* ── Table Row Actions ────────────────────────────────────── */
+.table-actions {
+  display: flex;
+  gap: 0.35rem;
+  justify-content: flex-end;
+}
+
+.icon-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.icon-action-btn:hover {
+  background-color: var(--color-brand-50);
+  color: var(--color-brand-600);
+}
+
+.icon-action-btn--danger:hover {
+  background-color: var(--color-error-bg);
+  color: var(--color-error);
+}
+
+/* ── Loading State ────────────────────────────────────────── */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3.5rem 1rem;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.loading-state .spinner {
+  margin-bottom: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.spinner {
+  border: 3px solid rgba(37, 99, 235, 0.1);
+  border-left-color: var(--color-brand-600);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+/* ── Inline Error State ───────────────────────────────────── */
+.inline-error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-secondary);
+}
+
+.inline-error-state h3 {
+  color: var(--color-error);
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 /* ── Table ────────────────────────────────────────────────── */
@@ -85,6 +178,18 @@
   font-size: 0.95rem;
 }
 
+@media (max-width: 640px) {
+  .data-table th,
+  .data-table td {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .table-container {
+    border-radius: var(--radius-md);
+  }
+}
+
 .data-table tbody tr {
   transition: background-color var(--transition-fast);
 }
@@ -102,12 +207,32 @@
 }
 
 .table-empty-state {
-  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 3.5rem 1.5rem;
   text-align: center;
   color: var(--color-muted);
   background: var(--color-surface);
   border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border);
+  border: 1px dashed var(--color-border);
+}
+
+.table-empty-state-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-brand-50);
+  color: var(--color-brand-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.table-empty-state p {
+  font-weight: 500;
 }
 
 /* ── Modal ────────────────────────────────────────────────── */
@@ -143,6 +268,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-shrink: 0;
 }
 
 .modal-title {
@@ -200,4 +326,39 @@
   .form-grid-full {
     grid-column: span 1;
   }
+
+  .modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .modal-container {
+    max-width: 100% !important;
+    width: 100%;
+    max-height: 92vh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    animation: sheet-up var(--transition-normal);
+  }
+
+  .modal-header {
+    padding: 1.25rem 1.25rem 1rem;
+  }
+
+  .modal-content {
+    padding: 1.25rem;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+  }
+}
+
+@keyframes sheet-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

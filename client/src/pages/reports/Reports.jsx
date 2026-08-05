@@ -106,16 +106,16 @@ const Reports = () => {
             <RiRefreshLine size={18} />
             Refresh Data
           </Button>
-          <Button 
-            style={{ backgroundColor: '#10b981', color: 'white', borderColor: '#10b981' }} 
+          <Button
+            variant="success"
             onClick={() => handleDownload('excel')}
             disabled={downloading || !reportData}
           >
             <RiFileExcel2Line size={18} />
             Export Excel
           </Button>
-          <Button 
-            style={{ backgroundColor: '#ef4444', color: 'white', borderColor: '#ef4444' }} 
+          <Button
+            variant="danger"
             onClick={() => handleDownload('pdf')}
             disabled={downloading || !reportData}
           >
@@ -126,7 +126,10 @@ const Reports = () => {
       </div>
 
       {loading ? (
-        <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-muted)' }}>Loading Report Data...</div>
+        <div className="loading-state">
+          <div className="spinner"></div>
+          <p>Loading report data...</p>
+        </div>
       ) : reportData ? (
         <>
           {/* ── Summary Cards ─────────────────────────────── */}

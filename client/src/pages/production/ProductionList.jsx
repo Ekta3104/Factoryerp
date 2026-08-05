@@ -59,16 +59,20 @@ const ProductionList = () => {
       header: 'Actions',
       align: 'right',
       cell: (row) => (
-        <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-          <button 
+        <div className="table-actions">
+          <button
             onClick={() => handleEdit(row)}
-            style={{ background: 'none', border: 'none', color: 'var(--color-brand-600)', cursor: 'pointer' }}
+            className="icon-action-btn"
+            aria-label="Edit production batch"
+            title="Edit"
           >
             <RiEdit2Line size={18} />
           </button>
-          <button 
+          <button
             onClick={() => handleDelete(row.id)}
-            style={{ background: 'none', border: 'none', color: 'var(--color-error)', cursor: 'pointer' }}
+            className="icon-action-btn icon-action-btn--danger"
+            aria-label="Delete production batch"
+            title="Delete"
           >
             <RiDeleteBinLine size={18} />
           </button>
@@ -79,7 +83,7 @@ const ProductionList = () => {
 
   return (
     <div>
-      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="page-header">
         <h1 className="page-title">Production</h1>
         <Button variant="primary" onClick={() => { setEditingProduction(null); setIsFormOpen(true); }}>
           <RiAddLine size={20} />
@@ -88,7 +92,10 @@ const ProductionList = () => {
       </div>
 
       {loading ? (
-        <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-muted)' }}>Loading...</div>
+        <div className="loading-state">
+          <div className="spinner"></div>
+          <p>Loading production batches...</p>
+        </div>
       ) : (
         <Table columns={columns} data={data} keyField="id" />
       )}

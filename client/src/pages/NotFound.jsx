@@ -1,23 +1,72 @@
 import { Link } from 'react-router-dom';
+import { RiSettings4Fill, RiArrowLeftLine } from 'react-icons/ri';
+import '../components/ui/ui.css';
 
 const NotFound = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
-      <div className="text-center">
-        <h1 className="text-9xl font-extrabold text-gray-200 tracking-widest">404</h1>
-        <div className="bg-blue-600 text-white px-2 text-sm rounded rotate-12 absolute -mt-16 ml-14">
-          Page Not Found
-        </div>
-        <div className="mt-8">
-          <p className="text-xl text-gray-600 mb-6">Sorry, the page you are looking for doesn't exist.</p>
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-sm"
-          >
-            Go back home
-          </Link>
-        </div>
+    <div
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'linear-gradient(160deg, var(--color-brand-900) 0%, var(--color-brand-700) 100%)',
+        padding: '2rem',
+        textAlign: 'center',
+      }}
+    >
+      <div
+        style={{
+          width: 64,
+          height: 64,
+          background: 'linear-gradient(135deg, var(--color-brand-600) 0%, var(--color-brand-400) 100%)',
+          borderRadius: 16,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#fff',
+          fontSize: 30,
+          boxShadow: '0 4px 12px rgba(37, 99, 235, 0.35)',
+          marginBottom: '2rem',
+        }}
+        aria-hidden="true"
+      >
+        <RiSettings4Fill />
       </div>
+
+      <h1
+        style={{
+          fontSize: 'clamp(3rem, 8vw, 5rem)',
+          fontWeight: 800,
+          color: '#fff',
+          letterSpacing: '-0.03em',
+          lineHeight: 1,
+          marginBottom: '0.75rem',
+        }}
+      >
+        404
+      </h1>
+
+      <p
+        style={{
+          fontSize: '1.05rem',
+          color: 'rgba(203, 213, 225, 0.85)',
+          marginBottom: '2rem',
+          maxWidth: 420,
+        }}
+      >
+        Sorry, the page you are looking for doesn't exist or has been moved.
+      </p>
+
+      <Link
+        to="/dashboard"
+        className="btn btn-primary"
+        style={{ textDecoration: 'none' }}
+      >
+        <RiArrowLeftLine size={18} />
+        Back to Dashboard
+      </Link>
     </div>
   );
 };

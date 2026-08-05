@@ -1,8 +1,8 @@
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { RiLogoutBoxRLine } from 'react-icons/ri';
+import { RiLogoutBoxRLine, RiMenuLine } from 'react-icons/ri';
 
-const Header = () => {
+const Header = ({ onMenuClick = () => {} }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,22 +31,31 @@ const Header = () => {
 
   return (
     <header className="app-header">
-      <h2 className="header-title">{getPageTitle()}</h2>
-      
+      <div className="header-left">
+        <button
+          className="header-menu-btn"
+          onClick={onMenuClick}
+          aria-label="Open navigation menu"
+        >
+          <RiMenuLine size={22} />
+        </button>
+        <h2 className="header-title">{getPageTitle()}</h2>
+      </div>
+
       <div className="header-actions">
         <div className="user-profile">
-          <div className="user-info" style={{ textAlign: 'right' }}>
-            <span className="user-name">{user?.username || 'User'}</span>
-            <span className="user-role">{user?.role || 'Guest'}</span>
-          </div>
           <div className="user-avatar">
             {getInitials(user?.username)}
           </div>
+          <div className="user-info">
+            <span className="user-name">{user?.username || 'User'}</span>
+            <span className="user-role">{user?.role || 'Guest'}</span>
+          </div>
         </div>
-        
-        <div style={{ width: '1px', height: '24px', backgroundColor: 'var(--color-border)' }}></div>
-        
-        <button className="btn-logout" onClick={handleLogout} title="Sign Out">
+
+        <div className="header-divider"></div>
+
+        <button className="btn-logout" onClick={handleLogout} title="Sign Out" aria-label="Sign Out">
           <RiLogoutBoxRLine size={20} />
           <span>Logout</span>
         </button>
