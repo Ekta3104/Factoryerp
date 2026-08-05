@@ -31,8 +31,16 @@ export const ReportModel = {
       ),
       opening_used AS (
         SELECT raw_material_id, COALESCE(SUM(quantity_used), 0) AS qty
-        FROM production_batches, params
-        WHERE start_time AT TIME ZONE 'Asia/Kolkata' < start_date AT TIME ZONE 'Asia/Kolkata'
+        FROM (
+          SELECT raw_material_id, quantity_used, COALESCE(production_date, start_time, created_at) AS entry_date
+          FROM production_batches
+          WHERE raw_material_id IS NOT NULL AND quantity_used IS NOT NULL
+          UNION ALL
+          SELECT pbm.raw_material_id, pbm.quantity_used, COALESCE(pb.production_date, pb.start_time, pb.created_at) AS entry_date
+          FROM production_batch_materials pbm
+          JOIN production_batches pb ON pbm.production_batch_id = pb.id
+        ) all_used, params
+        WHERE entry_date AT TIME ZONE 'Asia/Kolkata' < start_date AT TIME ZONE 'Asia/Kolkata'
         GROUP BY raw_material_id
       ),
       period_inward AS (
@@ -44,9 +52,17 @@ export const ReportModel = {
       ),
       period_used AS (
         SELECT raw_material_id, COALESCE(SUM(quantity_used), 0) AS qty
-        FROM production_batches, params
-        WHERE start_time AT TIME ZONE 'Asia/Kolkata' >= start_date AT TIME ZONE 'Asia/Kolkata'
-          AND start_time AT TIME ZONE 'Asia/Kolkata' <= end_date AT TIME ZONE 'Asia/Kolkata'
+        FROM (
+          SELECT raw_material_id, quantity_used, COALESCE(production_date, start_time, created_at) AS entry_date
+          FROM production_batches
+          WHERE raw_material_id IS NOT NULL AND quantity_used IS NOT NULL
+          UNION ALL
+          SELECT pbm.raw_material_id, pbm.quantity_used, COALESCE(pb.production_date, pb.start_time, pb.created_at) AS entry_date
+          FROM production_batch_materials pbm
+          JOIN production_batches pb ON pbm.production_batch_id = pb.id
+        ) all_used, params
+        WHERE entry_date AT TIME ZONE 'Asia/Kolkata' >= start_date AT TIME ZONE 'Asia/Kolkata'
+          AND entry_date AT TIME ZONE 'Asia/Kolkata' <= end_date AT TIME ZONE 'Asia/Kolkata'
         GROUP BY raw_material_id
       )
     SELECT
@@ -87,7 +103,7 @@ export const ReportModel = {
       opening_produced AS (
         SELECT ready_material_id, COALESCE(SUM(quantity_produced), 0) AS qty
         FROM production_batches, params
-        WHERE end_time AT TIME ZONE 'Asia/Kolkata' < start_date AT TIME ZONE 'Asia/Kolkata'
+        WHERE COALESCE(production_date, end_time, created_at) AT TIME ZONE 'Asia/Kolkata' < start_date AT TIME ZONE 'Asia/Kolkata'
         GROUP BY ready_material_id
       ),
       opening_dispatched AS (
@@ -99,8 +115,8 @@ export const ReportModel = {
       period_produced AS (
         SELECT ready_material_id, COALESCE(SUM(quantity_produced), 0) AS qty
         FROM production_batches, params
-        WHERE end_time AT TIME ZONE 'Asia/Kolkata' >= start_date AT TIME ZONE 'Asia/Kolkata'
-          AND end_time AT TIME ZONE 'Asia/Kolkata' <= end_date AT TIME ZONE 'Asia/Kolkata'
+        WHERE COALESCE(production_date, end_time, created_at) AT TIME ZONE 'Asia/Kolkata' >= start_date AT TIME ZONE 'Asia/Kolkata'
+          AND COALESCE(production_date, end_time, created_at) AT TIME ZONE 'Asia/Kolkata' <= end_date AT TIME ZONE 'Asia/Kolkata'
         GROUP BY ready_material_id
       ),
       period_dispatched AS (
@@ -141,8 +157,8 @@ export const ReportModel = {
     FROM production_batches pb
     LEFT JOIN raw_materials   rm  ON pb.raw_material_id = rm.id
     LEFT JOIN ready_materials rdy ON pb.ready_material_id = rdy.id
-    WHERE pb.start_time AT TIME ZONE 'Asia/Kolkata' >= $1::timestamptz AT TIME ZONE 'Asia/Kolkata'
-      AND pb.start_time AT TIME ZONE 'Asia/Kolkata' <= $2::timestamptz AT TIME ZONE 'Asia/Kolkata'
+    WHERE COALESCE(pb.production_date, pb.start_time, pb.created_at) AT TIME ZONE 'Asia/Kolkata' >= $1::timestamptz AT TIME ZONE 'Asia/Kolkata'
+      AND COALESCE(pb.production_date, pb.start_time, pb.created_at) AT TIME ZONE 'Asia/Kolkata' <= $2::timestamptz AT TIME ZONE 'Asia/Kolkata'
       AND ($3::text IS NULL OR pb.shift = $3)
       AND ($4::text IS NULL OR pb.operator_name ILIKE '%' || $4 || '%')
     GROUP BY pb.shift, rm.name, rdy.name
@@ -156,8 +172,8 @@ export const ReportModel = {
       COALESCE(SUM(pb.quantity_used), 0)      AS total_raw_used,
       COALESCE(SUM(pb.quantity_produced), 0)  AS total_produced
     FROM production_batches pb
-    WHERE pb.start_time AT TIME ZONE 'Asia/Kolkata' >= $1::timestamptz AT TIME ZONE 'Asia/Kolkata'
-      AND pb.start_time AT TIME ZONE 'Asia/Kolkata' <= $2::timestamptz AT TIME ZONE 'Asia/Kolkata'
+    WHERE COALESCE(pb.production_date, pb.start_time, pb.created_at) AT TIME ZONE 'Asia/Kolkata' >= $1::timestamptz AT TIME ZONE 'Asia/Kolkata'
+      AND COALESCE(pb.production_date, pb.start_time, pb.created_at) AT TIME ZONE 'Asia/Kolkata' <= $2::timestamptz AT TIME ZONE 'Asia/Kolkata'
       AND ($3::text IS NULL OR pb.shift = $3)
       AND ($4::text IS NULL OR pb.operator_name ILIKE '%' || $4 || '%')
     GROUP BY pb.operator_name
@@ -171,8 +187,8 @@ export const ReportModel = {
       COALESCE(SUM(pb.quantity_used), 0)      AS total_raw_used,
       COALESCE(SUM(pb.quantity_produced), 0)  AS total_produced
     FROM production_batches pb
-    WHERE pb.start_time AT TIME ZONE 'Asia/Kolkata' >= $1::timestamptz AT TIME ZONE 'Asia/Kolkata'
-      AND pb.start_time AT TIME ZONE 'Asia/Kolkata' <= $2::timestamptz AT TIME ZONE 'Asia/Kolkata'
+    WHERE COALESCE(pb.production_date, pb.start_time, pb.created_at) AT TIME ZONE 'Asia/Kolkata' >= $1::timestamptz AT TIME ZONE 'Asia/Kolkata'
+      AND COALESCE(pb.production_date, pb.start_time, pb.created_at) AT TIME ZONE 'Asia/Kolkata' <= $2::timestamptz AT TIME ZONE 'Asia/Kolkata'
       AND ($3::text IS NULL OR pb.shift = $3)
     GROUP BY pb.machine
     ORDER BY total_produced DESC;
@@ -300,13 +316,13 @@ export const ReportModel = {
   // ------------------------------------------
   productionTrend: `
     SELECT
-      DATE(pb.start_time AT TIME ZONE 'Asia/Kolkata')   AS day,
+      DATE(COALESCE(pb.production_date, pb.start_time, pb.created_at) AT TIME ZONE 'Asia/Kolkata')   AS day,
       COALESCE(SUM(pb.quantity_produced), 0)             AS total_produced,
       COALESCE(SUM(pb.quantity_used), 0)                 AS total_raw_used,
       COUNT(*)                                           AS batch_count
     FROM production_batches pb
-    WHERE pb.start_time AT TIME ZONE 'Asia/Kolkata' >= $1::timestamptz AT TIME ZONE 'Asia/Kolkata'
-      AND pb.start_time AT TIME ZONE 'Asia/Kolkata' <= $2::timestamptz AT TIME ZONE 'Asia/Kolkata'
+    WHERE COALESCE(pb.production_date, pb.start_time, pb.created_at) AT TIME ZONE 'Asia/Kolkata' >= $1::timestamptz AT TIME ZONE 'Asia/Kolkata'
+      AND COALESCE(pb.production_date, pb.start_time, pb.created_at) AT TIME ZONE 'Asia/Kolkata' <= $2::timestamptz AT TIME ZONE 'Asia/Kolkata'
     GROUP BY day
     ORDER BY day;
   `,

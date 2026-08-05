@@ -115,7 +115,7 @@ const Dashboard = () => {
             <ResponsiveContainer>
               <BarChart
                 data={trends.last_7_days_production.map((p, i) => ({
-                  date: new Date(p.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }),
+                  date: new Date(p.date || p.day).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }),
                   Production: parseFloat(p.total_produced),
                   Dispatch: parseFloat(trends.last_7_days_dispatch[i]?.total_dispatched || 0)
                 }))}
