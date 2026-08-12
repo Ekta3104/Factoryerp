@@ -5,11 +5,19 @@ import {
   RiSettings4Line, 
   RiSendPlaneLine, 
   RiMoneyDollarCircleLine, 
-  RiFileList3Line 
+  RiFileList3Line,
+  RiBankCardLine,
+  RiHandHeartLine,
+  RiUser3Line,
+  RiShieldCheckLine
 } from 'react-icons/ri';
 
 const navItems = [
   { path: '/dashboard', label: 'Dashboard', icon: <RiDashboardLine className="sidebar-link-icon" /> },
+  { path: '/salaries', label: 'Salary Module', icon: <RiBankCardLine className="sidebar-link-icon" /> },
+  { path: '/advances', label: 'Universal Advance', icon: <RiHandHeartLine className="sidebar-link-icon" /> },
+  { path: '/recipients', label: 'Recipient Profiles', icon: <RiUser3Line className="sidebar-link-icon" /> },
+  { path: '/financial-audit', label: 'Financial Audit', icon: <RiShieldCheckLine className="sidebar-link-icon" /> },
   { path: '/vehicle-inwards', label: 'Vehicle Inwards', icon: <RiTruckLine className="sidebar-link-icon" /> },
   { path: '/production', label: 'Production', icon: <RiSettings4Line className="sidebar-link-icon" /> },
   { path: '/dispatches', label: 'Dispatches', icon: <RiSendPlaneLine className="sidebar-link-icon" /> },
