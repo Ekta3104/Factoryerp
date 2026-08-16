@@ -9,23 +9,15 @@ import ProductionList from './pages/production/ProductionList.jsx';
 import DispatchList from './pages/dispatch/DispatchList.jsx';
 import ExpenseList from './pages/expenses/ExpenseList.jsx';
 import Reports from './pages/reports/Reports.jsx';
+import SalaryDashboard from './pages/salary/SalaryDashboard.jsx';
+import SalaryRegister from './pages/salary/SalaryRegister.jsx';
+import AdvanceDashboard from './pages/advance/AdvanceDashboard.jsx';
+import AdvanceRegister from './pages/advance/AdvanceRegister.jsx';
+import PartyProfiles from './pages/parties/PartyProfiles.jsx';
+import FinancialLedgerAudit from './pages/reports/FinancialLedgerAudit.jsx';
 
 /**
  * App — root router.
- *
- * Public routes:
- *   /login    → Login page
- *   /         → redirect to /login
- *
- * Protected routes (require valid JWT session):
- *   /dashboard → Dashboard (placeholder)
- *
- * Future protected routes (add inside the ProtectedRoute wrapper):
- *   /vehicle-inwards
- *   /production
- *   /dispatch
- *   /expenses
- *   /reports
  */
 function App() {
   return (
@@ -40,12 +32,17 @@ function App() {
       <Route element={<ProtectedRoute />}>
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/salaries" element={<SalaryDashboard />} />
+          <Route path="/salaries/register" element={<SalaryRegister />} />
+          <Route path="/advances" element={<AdvanceDashboard />} />
+          <Route path="/advances/register" element={<AdvanceRegister />} />
+          <Route path="/recipients" element={<PartyProfiles />} />
+          <Route path="/financial-audit" element={<FinancialLedgerAudit />} />
           <Route path="/vehicle-inwards" element={<VehicleInwardsList />} />
           <Route path="/production" element={<ProductionList />} />
           <Route path="/dispatches" element={<DispatchList />} />
           <Route path="/expenses" element={<ExpenseList />} />
           <Route path="/reports" element={<Reports />} />
-          {/* Add future module routes here */}
         </Route>
       </Route>
 

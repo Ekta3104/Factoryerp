@@ -48,6 +48,7 @@ const MIGRATIONS = [
   '07_add_users_is_active.sql',
   '08_add_production_formulas.sql',
   '09_add_ready_material_pack_size.sql',
+  '10_salary_and_universal_advance.sql',
 ];
 
 const DB_DIR = path.resolve(__dirname, '../../database');

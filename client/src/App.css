@@ -978,6 +978,125 @@ textarea:focus-visible,
   background: linear-gradient(180deg, var(--color-brand-400) 0%, var(--color-brand-600) 100%);
 }
 
+.page-subtitle {
+  padding-left: 0.9rem;
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.page-header-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* ── Filter Bar (search + selects above a table) ──────────── */
+.filter-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.85rem;
+  padding: 1rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-input);
+}
+
+.filter-search {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.filter-search svg {
+  position: absolute;
+  left: 12px;
+  color: var(--color-muted);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+.filter-search input {
+  width: 100%;
+  padding: 0.55rem 0.9rem 0.55rem 2.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: #f8fafc;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--color-text);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.filter-search input:focus {
+  outline: none;
+  border-color: var(--color-brand-400);
+  background: #fff;
+}
+
+.filter-select {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: #f8fafc;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--color-text);
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--color-brand-400);
+  background: #fff;
+}
+
+@media (min-width: 768px) {
+  .filter-bar {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .filter-select {
+    width: 200px;
+    flex-shrink: 0;
+  }
+}
+
+/* ── Content Card (widgets, panels) ───────────────────────── */
+.content-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-input);
+  padding: 1.25rem;
+}
+
+.content-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.85rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.content-card-header h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.content-card-header p {
+  font-size: 0.78rem;
+  color: var(--color-muted);
+  margin-top: 0.15rem;
+}
+
 /* ── Responsive Shell (Mobile Drawer) ─────────────────────── */
 @media (max-width: 900px) {
   .header-menu-btn {

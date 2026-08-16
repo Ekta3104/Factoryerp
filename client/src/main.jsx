@@ -14,6 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         {/* Global toast notifications */}
         <Toaster
           position="top-right"
+          containerStyle={{ top: 80, right: 24 }}
           toastOptions={{
             duration: 4000,
             style: {
@@ -21,6 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               fontSize: '14px',
               borderRadius: '10px',
               boxShadow: '0 8px 24px rgba(15,23,42,0.14)',
+              maxWidth: '380px',
             },
             success: {
               iconTheme: { primary: '#22c55e', secondary: '#fff' },
