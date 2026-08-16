@@ -1077,6 +1077,9 @@ textarea:focus-visible,
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-input);
   padding: 1.25rem;
+  /* Without this, a wide nowrap table inside can force the grid/flex
+     track (and the page) past the viewport instead of scrolling internally. */
+  min-width: 0;
 }
 
 .content-card-header {
