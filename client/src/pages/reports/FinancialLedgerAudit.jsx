@@ -67,16 +67,16 @@ const FinancialLedgerAudit = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-200" role="tablist" aria-label="Ledger and audit views">
+      <div className="flex" style={{ borderBottom: '1px solid var(--color-border)' }} role="tablist" aria-label="Ledger and audit views">
         <button
           role="tab"
           aria-selected={activeTab === 'ledger'}
           onClick={() => setActiveTab('ledger')}
-          className={`flex items-center gap-2 px-5 py-3 font-semibold text-sm border-b-2 transition-all ${
-            activeTab === 'ledger'
-              ? 'border-blue-600 text-blue-600'
-              : 'border-transparent text-slate-500 hover:text-slate-700'
-          }`}
+          className="flex items-center gap-2 px-5 py-3 font-semibold text-sm transition-all"
+          style={{
+            borderBottom: `2px solid ${activeTab === 'ledger' ? 'var(--color-brand-600)' : 'transparent'}`,
+            color: activeTab === 'ledger' ? 'var(--color-brand-600)' : 'var(--color-text-secondary)',
+          }}
         >
           <RiFileList2Line className="w-4 h-4" />
           Financial Transaction Ledger
@@ -85,11 +85,11 @@ const FinancialLedgerAudit = () => {
           role="tab"
           aria-selected={activeTab === 'audit'}
           onClick={() => setActiveTab('audit')}
-          className={`flex items-center gap-2 px-5 py-3 font-semibold text-sm border-b-2 transition-all ${
-            activeTab === 'audit'
-              ? 'border-blue-600 text-blue-600'
-              : 'border-transparent text-slate-500 hover:text-slate-700'
-          }`}
+          className="flex items-center gap-2 px-5 py-3 font-semibold text-sm transition-all"
+          style={{
+            borderBottom: `2px solid ${activeTab === 'audit' ? 'var(--color-brand-600)' : 'transparent'}`,
+            color: activeTab === 'audit' ? 'var(--color-brand-600)' : 'var(--color-text-secondary)',
+          }}
         >
           <RiShieldCheckLine className="w-4 h-4" />
           System Audit Logs

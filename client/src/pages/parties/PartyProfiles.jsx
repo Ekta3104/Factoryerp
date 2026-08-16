@@ -134,28 +134,32 @@ const PartyProfiles = () => {
               }}
               role="button"
               tabIndex={0}
-              className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all cursor-pointer space-y-3"
+              className="content-card clickable-row"
+              style={{ cursor: 'pointer' }}
             >
-              <div className="flex justify-between items-start">
+              <div className="flex justify-between items-start gap-3">
                 <div>
-                  <h3 className="font-bold text-slate-900 text-base">{p.name}</h3>
-                  <span className="inline-block mt-1 px-2 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 text-xs font-semibold rounded-md">
+                  <h3 className="font-bold text-base" style={{ color: 'var(--color-text)' }}>{p.name}</h3>
+                  <span className="status-badge status-badge-info" style={{ marginTop: '0.35rem', display: 'inline-flex' }}>
                     {p.party_type}
                   </span>
                 </div>
-                <div className="p-2 bg-slate-100 text-slate-600 rounded-xl">
-                  <RiUser3Line className="w-5 h-5" />
+                <div className="metric-card-icon metric-card-icon-blue" style={{ width: 36, height: 36, fontSize: '1rem' }}>
+                  <RiUser3Line />
                 </div>
               </div>
 
-              <div className="space-y-1 text-xs text-slate-500">
+              <div className="space-y-1 text-xs" style={{ color: 'var(--color-text-secondary)', marginTop: '0.85rem' }}>
                 {p.phone && <p className="flex items-center gap-1.5"><RiPhoneLine /> {p.phone}</p>}
                 {p.email && <p className="flex items-center gap-1.5"><RiMailLine /> {p.email}</p>}
               </div>
 
-              <div className="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
-                <span className="text-slate-500">Outstanding Advance:</span>
-                <span className="font-bold text-rose-600 text-sm">{fmt(p.total_outstanding_advance)}</span>
+              <div
+                className="flex justify-between items-center text-xs"
+                style={{ marginTop: '0.85rem', paddingTop: '0.85rem', borderTop: '1px solid var(--color-border)' }}
+              >
+                <span style={{ color: 'var(--color-text-secondary)' }}>Outstanding Advance:</span>
+                <span className="font-bold text-sm" style={{ color: 'var(--color-error)' }}>{fmt(p.total_outstanding_advance)}</span>
               </div>
             </div>
           ))}
