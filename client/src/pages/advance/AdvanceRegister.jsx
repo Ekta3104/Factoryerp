@@ -143,7 +143,7 @@ const AdvanceRegister = () => {
                     {a.party_name}
                     <span className="block text-[11px] font-normal text-slate-400">{a.party_type}</span>
                   </td>
-                  <td className="max-w-xs truncate">{a.reason}</td>
+                  <td className="max-w-xs truncate" title={a.reason}>{a.reason}</td>
                   <td className="font-bold text-slate-900">{fmt(a.amount)}</td>
                   <td className="text-amber-600 font-medium">{fmt(a.adjusted_amount)}</td>
                   <td className="text-purple-600 font-medium">{fmt(a.refunded_amount)}</td>

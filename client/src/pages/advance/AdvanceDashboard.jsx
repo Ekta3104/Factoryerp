@@ -69,7 +69,7 @@ const AdvanceDashboard = () => {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <FinancialMetricCard title="Total Advances Disbursed" value={fmt(summary.total_disbursed)} icon={RiHandHeartLine} color="blue" />
             <FinancialMetricCard title="Total Adjusted (Salary/Invoice)" value={fmt(summary.total_adjusted)} icon={RiExchangeDollarLine} color="amber" />
             <FinancialMetricCard title="Total Direct Refunded" value={fmt(summary.total_refunded)} icon={RiRefund2Line} color="purple" />

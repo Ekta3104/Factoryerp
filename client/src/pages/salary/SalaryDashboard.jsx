@@ -71,7 +71,7 @@ const SalaryDashboard = () => {
       ) : (
         <>
           {/* Financial KPI Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <FinancialMetricCard title="Total Gross Salary Accrued" value={fmt(summary.total_gross)} icon={RiMoneyDollarCircleLine} color="blue" />
             <FinancialMetricCard title="Total Salary Paid" value={fmt(summary.total_paid)} icon={RiCheckDoubleLine} color="green" />
             <FinancialMetricCard title="Total Pending Balance" value={fmt(summary.total_pending)} icon={RiTimeLine} color="rose" />
