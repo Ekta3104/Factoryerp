@@ -341,7 +341,7 @@ textarea:focus-visible,
 .input-field {
   width: 100%;
   height: 46px;
-  padding: 0 14px 0 42px;
+  padding: 0 14px;
   font-size: 14px;
   font-family: inherit;
   color: var(--color-text);
@@ -399,6 +399,10 @@ textarea:focus-visible,
 .input-suffix:hover {
   color: var(--color-brand-500);
   background: rgba(59, 130, 246, 0.08);
+}
+
+.input-field.has-icon {
+  padding-left: 42px;
 }
 
 .input-field.has-suffix {

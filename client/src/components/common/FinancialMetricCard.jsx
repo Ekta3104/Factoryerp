@@ -19,14 +19,14 @@ const FinancialMetricCard = ({ title, value, subtitle, icon: Icon, color = 'blue
 
   return (
     <div className={`p-5 rounded-2xl border shadow-sm transition-all duration-200 bg-white hover:shadow-md ${colorStyles[color] || colorStyles.blue}`}>
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">{title}</p>
-          <h3 className="text-2xl font-bold text-slate-900 mt-1">{value}</h3>
-          {subtitle && <p className="text-xs text-slate-500 mt-1">{subtitle}</p>}
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 break-words">{title}</p>
+          <h3 className="text-2xl font-bold text-slate-900 mt-1 truncate">{value}</h3>
+          {subtitle && <p className="text-xs text-slate-500 mt-1 truncate">{subtitle}</p>}
         </div>
         {Icon && (
-          <div className={`p-3.5 rounded-xl shadow-sm ${iconBgStyles[color] || iconBgStyles.blue}`}>
+          <div className={`p-3.5 rounded-xl shadow-sm shrink-0 ${iconBgStyles[color] || iconBgStyles.blue}`}>
             <Icon className="w-6 h-6" />
           </div>
         )}

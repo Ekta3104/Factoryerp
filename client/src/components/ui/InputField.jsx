@@ -45,7 +45,7 @@ const InputField = forwardRef(function InputField(
           aria-describedby={error ? `${id}-error` : undefined}
           className={[
             'input-field',
-            icon ? '' : 'pl-3',
+            icon ? 'has-icon' : '',
             isPassword ? 'has-suffix' : '',
             unit ? 'has-unit' : '',
             error ? 'input-field--error' : '',
