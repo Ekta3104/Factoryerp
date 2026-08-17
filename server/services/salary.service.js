@@ -12,6 +12,9 @@ export const SalaryService = {
     if (!data.cycle_name || !data.start_date || !data.end_date) {
       throw new Error('Cycle Name, Start Date, and End Date are required.');
     }
+    if (!['Daily', 'Weekly', 'Monthly'].includes(data.cycle_type)) {
+      throw new Error('Cycle Type must be one of Daily, Weekly, or Monthly.');
+    }
     return await SalaryModel.createSalaryCycle({ ...data, created_by: userId });
   },
 
@@ -59,32 +62,42 @@ export const SalaryService = {
         throw new Error('A salary record already exists for this recipient in the selected cycle.');
       }
 
+      // Lock the party's active advances up front and validate the requested deduction
+      // against what's actually outstanding, before it gets baked into net_salary below.
+      let activeAdvRes = { rows: [] };
+      if (advDed > 0) {
+        activeAdvRes = await client.query(`
+          SELECT id, outstanding_balance FROM advances
+          WHERE party_id = $1 AND status IN ('Active', 'Partially Adjusted') AND outstanding_balance > 0
+          ORDER BY disbursement_date ASC FOR UPDATE
+        `, [party_id]);
+
+        const totalAvailable = activeAdvRes.rows.reduce((sum, row) => sum + parseFloat(row.outstanding_balance), 0);
+        if (advDed > totalAvailable) {
+          throw new Error(`Advance deduction (₹${advDed}) exceeds this employee's actual outstanding advance balance (₹${totalAvailable}).`);
+        }
+      }
+
       // Insert Employee Salary record
       const salInsertRes = await client.query(`
         INSERT INTO employee_salaries
-          (salary_cycle_id, party_id, gross_salary, total_deductions, net_salary, paid_amount, adjusted_advance_amount, pending_balance, status, notes)
-        VALUES ($1, $2, $3, $4, $5, 0, $6, $5, 'Unpaid', $7)
+          (salary_cycle_id, party_id, gross_salary, bonus_allowance, total_deductions, paid_amount, adjusted_advance_amount, status, notes)
+        VALUES ($1, $2, $3, $4, $5, 0, $6, 'Unpaid', $7)
         RETURNING *
       `, [
         salary_cycle_id,
         party_id,
         gross,
+        bonus,
         advDed + otherDed,
-        netSalary,
         advDed,
         notes || null,
       ]);
 
       const salaryRecord = salInsertRes.rows[0];
 
-      // Auto-adjust active advances if advance_deduction > 0
+      // Auto-adjust active advances if advance_deduction > 0 (already locked and validated above)
       if (advDed > 0) {
-        const activeAdvRes = await client.query(`
-          SELECT id, outstanding_balance FROM advances 
-          WHERE party_id = $1 AND status IN ('Active', 'Partially Adjusted') AND outstanding_balance > 0
-          ORDER BY disbursement_date ASC FOR UPDATE
-        `, [party_id]);
-
         let remainingDedToAllocate = advDed;
         for (const advRow of activeAdvRes.rows) {
           if (remainingDedToAllocate <= 0) break;
@@ -98,7 +111,7 @@ export const SalaryService = {
             allocation_date: new Date().toISOString().split('T')[0],
             reference_number: `SAL-${salaryRecord.id.substring(0, 8)}`,
             notes: `Auto deduction in salary cycle`,
-          }, userId);
+          }, userId, client);
 
           remainingDedToAllocate -= allocAmount;
         }
@@ -163,17 +176,16 @@ export const SalaryService = {
 
       const newPaid = parseFloat(salary.paid_amount) + pmtAmt;
       const newPending = pendingBal - pmtAmt;
-      const newStatus = newPending === 0 ? 'Paid' : 'Partially Paid';
+      const newStatus = newPending < 0.01 ? 'Paid' : 'Partially Paid';
 
       // Update Salary Record
       await client.query(`
         UPDATE employee_salaries
         SET paid_amount = $1,
-            pending_balance = $2,
-            status = $3,
+            status = $2,
             updated_at = CURRENT_TIMESTAMP
-        WHERE id = $4
-      `, [newPaid, newPending, newStatus, employee_salary_id]);
+        WHERE id = $3
+      `, [newPaid, newStatus, employee_salary_id]);
 
       // Insert Payment Entry
       const pmtInsertRes = await client.query(`

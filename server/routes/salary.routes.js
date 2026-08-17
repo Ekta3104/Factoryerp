@@ -11,11 +11,12 @@ router.post('/cycles', authorize('Owner', 'Admin'), salaryController.createSalar
 router.patch('/cycles/:id/status', authorize('Owner', 'Admin'), salaryController.updateSalaryCycleStatus);
 
 router.get('/', salaryController.getSalaries);
-router.get('/:id', salaryController.getSalaryDetails);
 router.post('/', authorize('Owner', 'Admin'), salaryController.addSalaryRecord);
 router.post('/payments', authorize('Owner', 'Admin'), salaryController.recordSalaryPayment);
 
 router.get('/structures', salaryController.getSalaryStructures);
 router.post('/structures', authorize('Owner', 'Admin'), salaryController.saveSalaryStructure);
+
+router.get('/:id', salaryController.getSalaryDetails);
 
 export default router;

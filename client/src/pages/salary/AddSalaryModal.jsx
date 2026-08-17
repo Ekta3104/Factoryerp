@@ -80,7 +80,7 @@ const AddSalaryModal = ({ isOpen, onClose, onSuccess, defaultCycleId }) => {
             >
               <option value="">-- Select Cycle --</option>
               {cycles.map((c) => (
-                <option key={c.id} value={c.id}>{c.cycle_name} ({c.status})</option>
+                <option key={c.id} value={c.id}>{c.cycle_name} · {c.cycle_type} ({c.status})</option>
               ))}
             </select>
           </div>

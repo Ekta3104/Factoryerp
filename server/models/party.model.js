@@ -31,13 +31,20 @@ export const PartyModel = {
 
     const result = await pool.query(query, params);
 
-    const countQuery = `
-      SELECT COUNT(*) AS total FROM advance_parties
-      WHERE 1=1
-      ${party_type ? "AND party_type = '" + party_type + "'" : ""}
-      ${search ? "AND (name ILIKE '%" + search + "%' OR phone ILIKE '%" + search + "%')" : ""}
-    `;
-    const countRes = await pool.query(countQuery);
+    const countParams = [];
+    let countQuery = `SELECT COUNT(*) AS total FROM advance_parties WHERE 1=1`;
+
+    if (party_type) {
+      countParams.push(party_type);
+      countQuery += ` AND party_type = $${countParams.length}`;
+    }
+
+    if (search) {
+      countParams.push(`%${search}%`);
+      countQuery += ` AND (name ILIKE $${countParams.length} OR phone ILIKE $${countParams.length})`;
+    }
+
+    const countRes = await pool.query(countQuery, countParams);
 
     return {
       parties: result.rows,
@@ -48,7 +55,7 @@ export const PartyModel = {
   async getPartyById(id) {
     const query = `
       SELECT p.*,
-        COALESCE((SELECT SUM(total_amount) FROM advances WHERE party_id = p.id AND status != 'Reversed'), 0) as total_advances_given,
+        COALESCE((SELECT SUM(amount) FROM advances WHERE party_id = p.id AND status != 'Reversed'), 0) as total_advances_given,
         COALESCE((SELECT SUM(outstanding_balance) FROM advances WHERE party_id = p.id AND status IN ('Active', 'Partially Adjusted')), 0) as total_outstanding_advance,
         COALESCE((SELECT SUM(gross_salary) FROM employee_salaries WHERE party_id = p.id AND status != 'Cancelled'), 0) as total_salary_accrued,
         COALESCE((SELECT SUM(paid_amount) FROM employee_salaries WHERE party_id = p.id AND status != 'Cancelled'), 0) as total_salary_paid

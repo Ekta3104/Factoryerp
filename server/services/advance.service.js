@@ -37,9 +37,9 @@ export const AdvanceService = {
       const totalAmt = parseFloat(amount);
 
       const advInsertRes = await client.query(`
-        INSERT INTO advances 
-          (advance_number, party_id, category_id, amount, adjusted_amount, refunded_amount, outstanding_balance, disbursement_date, reason, payment_method, reference_number, project_work_name, status, notes, created_by)
-        VALUES ($1, $2, $3, $4, 0, 0, $4, $5, $6, $7, $8, $9, 'Active', $10, $11)
+        INSERT INTO advances
+          (advance_number, party_id, category_id, amount, adjusted_amount, refunded_amount, disbursement_date, reason, payment_method, reference_number, project_work_name, status, notes, created_by)
+        VALUES ($1, $2, $3, $4, 0, 0, $5, $6, $7, $8, $9, 'Active', $10, $11)
         RETURNING *
       `, [
         advanceNumber,
@@ -95,7 +95,7 @@ export const AdvanceService = {
     }
   },
 
-  async allocateAdvance(data, userId) {
+  async allocateAdvance(data, userId, externalClient = null) {
     const { advance_id, allocation_type, amount, allocation_date, salary_payment_id, expense_id, reference_number, notes } = data;
 
     const allocAmt = parseFloat(amount);
@@ -103,9 +103,10 @@ export const AdvanceService = {
       throw new Error('Advance ID, positive Allocation Amount, Allocation Type, and Date are required.');
     }
 
-    const client = await pool.connect();
+    const client = externalClient || await pool.connect();
+    const ownsTransaction = !externalClient;
     try {
-      await client.query('BEGIN');
+      if (ownsTransaction) await client.query('BEGIN');
 
       // Pessimistic Row Lock
       const advRes = await client.query(`SELECT * FROM advances WHERE id = $1 FOR UPDATE`, [advance_id]);
@@ -120,17 +121,16 @@ export const AdvanceService = {
 
       const newAdjusted = parseFloat(advance.adjusted_amount) + allocAmt;
       const newOutstanding = currentOutstanding - allocAmt;
-      const newStatus = newOutstanding === 0 ? 'Fully Adjusted' : 'Partially Adjusted';
+      const newStatus = newOutstanding < 0.01 ? 'Fully Adjusted' : 'Partially Adjusted';
 
       // Update Advance
       await client.query(`
         UPDATE advances
         SET adjusted_amount = $1,
-            outstanding_balance = $2,
-            status = $3,
+            status = $2,
             updated_at = CURRENT_TIMESTAMP
-        WHERE id = $4
-      `, [newAdjusted, newOutstanding, newStatus, advance_id]);
+        WHERE id = $3
+      `, [newAdjusted, newStatus, advance_id]);
 
       // Insert Allocation Record
       const allocInsertRes = await client.query(`
@@ -181,13 +181,13 @@ export const AdvanceService = {
         user_id: userId,
       });
 
-      await client.query('COMMIT');
+      if (ownsTransaction) await client.query('COMMIT');
       return allocation;
     } catch (error) {
-      await client.query('ROLLBACK');
+      if (ownsTransaction) await client.query('ROLLBACK');
       throw error;
     } finally {
-      client.release();
+      if (ownsTransaction) client.release();
     }
   },
 
@@ -216,17 +216,16 @@ export const AdvanceService = {
 
       const newRefunded = parseFloat(advance.refunded_amount) + refundAmt;
       const newOutstanding = currentOutstanding - refundAmt;
-      const newStatus = newOutstanding === 0 ? 'Fully Adjusted' : 'Partially Adjusted';
+      const newStatus = newOutstanding < 0.01 ? 'Fully Adjusted' : 'Partially Adjusted';
 
       // Update Advance
       await client.query(`
         UPDATE advances
         SET refunded_amount = $1,
-            outstanding_balance = $2,
-            status = $3,
+            status = $2,
             updated_at = CURRENT_TIMESTAMP
-        WHERE id = $4
-      `, [newRefunded, newOutstanding, newStatus, advance_id]);
+        WHERE id = $3
+      `, [newRefunded, newStatus, advance_id]);
 
       // Insert Allocation Record with type 'Direct Refund'
       const allocInsertRes = await client.query(`

@@ -18,12 +18,12 @@ export const SalaryModel = {
     return res.rows;
   },
 
-  async createSalaryCycle({ cycle_name, start_date, end_date, created_by }) {
+  async createSalaryCycle({ cycle_name, cycle_type, start_date, end_date, created_by }) {
     const res = await pool.query(`
-      INSERT INTO salary_cycles (cycle_name, start_date, end_date, status, created_by)
-      VALUES ($1, $2, $3, 'Open', $4)
+      INSERT INTO salary_cycles (cycle_name, cycle_type, start_date, end_date, status, created_by)
+      VALUES ($1, $2, $3, $4, 'Open', $5)
       RETURNING *
-    `, [cycle_name, start_date, end_date, created_by || null]);
+    `, [cycle_name, cycle_type, start_date, end_date, created_by || null]);
     return res.rows[0];
   },
 
@@ -73,16 +73,23 @@ export const SalaryModel = {
 
     const result = await pool.query(query, params);
 
-    const summaryRes = await pool.query(`
-      SELECT 
+    const summaryParams = [];
+    let summaryQuery = `
+      SELECT
         COALESCE(SUM(gross_salary), 0) AS total_gross,
         COALESCE(SUM(adjusted_advance_amount), 0) AS total_advance_deductions,
         COALESCE(SUM(paid_amount), 0) AS total_paid,
         COALESCE(SUM(pending_balance), 0) AS total_pending
       FROM employee_salaries
       WHERE status != 'Cancelled'
-      ${salary_cycle_id ? "AND salary_cycle_id = '" + salary_cycle_id + "'" : ""}
-    `);
+    `;
+
+    if (salary_cycle_id) {
+      summaryParams.push(salary_cycle_id);
+      summaryQuery += ` AND salary_cycle_id = $${summaryParams.length}`;
+    }
+
+    const summaryRes = await pool.query(summaryQuery, summaryParams);
 
     return {
       salaries: result.rows,

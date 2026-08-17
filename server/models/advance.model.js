@@ -138,8 +138,8 @@ export const AdvanceModel = {
   },
 
   async generateAdvanceNumber() {
-    const countRes = await pool.query(`SELECT COUNT(*) FROM advances`);
-    const nextSeq = parseInt(countRes.rows[0].count, 10) + 1;
+    const seqRes = await pool.query(`SELECT nextval('advance_number_seq') AS seq`);
+    const nextSeq = parseInt(seqRes.rows[0].seq, 10);
     const year = new Date().getFullYear();
     return `ADV-${year}-${String(nextSeq).padStart(5, '0')}`;
   },

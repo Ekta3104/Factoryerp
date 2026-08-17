@@ -7,6 +7,7 @@ const STATUS_VARIANTS = {
   Paid: 'success',
   FULLY_PAID: 'success',
   'Partially Adjusted': 'warning',
+  'Partially Paid': 'warning',
   PARTIALLY_PAID: 'warning',
   Processing: 'warning',
   'Fully Adjusted': 'neutral',

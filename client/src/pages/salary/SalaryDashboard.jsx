@@ -3,6 +3,7 @@ import { salaryService } from '../../services/salaryService';
 import FinancialMetricCard from '../../components/common/FinancialMetricCard';
 import StatusBadge from '../../components/common/StatusBadge';
 import AddSalaryModal from './AddSalaryModal';
+import AddSalaryCycleModal from './AddSalaryCycleModal';
 import RecordPaymentModal from './RecordPaymentModal';
 import { toast } from 'react-hot-toast';
 import {
@@ -23,6 +24,7 @@ const SalaryDashboard = () => {
   const [salaries, setSalaries] = useState([]);
   const [summary, setSummary] = useState({});
   const [isAddSalaryOpen, setIsAddSalaryOpen] = useState(false);
+  const [isAddCycleOpen, setIsAddCycleOpen] = useState(false);
   const [selectedSalaryForPayment, setSelectedSalaryForPayment] = useState(null);
 
   useEffect(() => {
@@ -52,6 +54,10 @@ const SalaryDashboard = () => {
           <p className="page-subtitle">Track salary cycles, manual payouts, advance deductions, and pending balances</p>
         </div>
         <div className="page-header-actions">
+          <button onClick={() => setIsAddCycleOpen(true)} className="btn btn-secondary">
+            <RiAddLine size={18} />
+            Add Cycle
+          </button>
           <button onClick={() => setIsAddSalaryOpen(true)} className="btn btn-primary">
             <RiAddLine size={18} />
             Add Salary Record
@@ -99,6 +105,7 @@ const SalaryDashboard = () => {
                         <h4 className="font-semibold text-slate-900 text-sm">{c.cycle_name}</h4>
                         <StatusBadge status={c.status} />
                       </div>
+                      <div className="mt-1 text-[11px] font-medium text-slate-400">{c.cycle_type}</div>
                       <div className="mt-2 text-xs text-slate-500 flex justify-between">
                         <span>Gross: {fmt(c.total_gross_salary)}</span>
                         <span>Paid: {fmt(c.total_paid_amount)}</span>
@@ -167,6 +174,12 @@ const SalaryDashboard = () => {
       )}
 
       {/* Modals */}
+      <AddSalaryCycleModal
+        isOpen={isAddCycleOpen}
+        onClose={() => setIsAddCycleOpen(false)}
+        onSuccess={fetchDashboardData}
+      />
+
       <AddSalaryModal
         isOpen={isAddSalaryOpen}
         onClose={() => setIsAddSalaryOpen(false)}
