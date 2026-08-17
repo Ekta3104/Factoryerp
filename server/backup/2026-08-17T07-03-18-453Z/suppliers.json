@@ -1,0 +1,32 @@
+[
+  {
+    "id": "6116b713-6251-4c89-b37a-1cabdc48f82e",
+    "name": "Gujarat Fluorochemicals Limited",
+    "contact_person": null,
+    "email": null,
+    "phone": null,
+    "address": null,
+    "created_at": "2026-08-05T08:55:47.951Z",
+    "updated_at": "2026-08-05T08:55:47.951Z"
+  },
+  {
+    "id": "8361113b-2c50-4b0f-9bd3-f86dd738ec58",
+    "name": "Navin Fluorine",
+    "contact_person": null,
+    "email": null,
+    "phone": null,
+    "address": null,
+    "created_at": "2026-08-05T08:55:47.951Z",
+    "updated_at": "2026-08-05T08:55:47.951Z"
+  },
+  {
+    "id": "033f91db-bb42-42d6-8ad7-bc0e71dbc6f0",
+    "name": "Gulista Lime",
+    "contact_person": null,
+    "email": null,
+    "phone": null,
+    "address": null,
+    "created_at": "2026-08-05T08:55:47.951Z",
+    "updated_at": "2026-08-05T08:55:47.951Z"
+  }
+]

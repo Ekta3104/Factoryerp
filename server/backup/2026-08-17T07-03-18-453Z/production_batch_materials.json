@@ -1,0 +1,65 @@
+[
+  {
+    "id": "4a321484-0499-494b-9235-a2083d436f4e",
+    "production_batch_id": "d385295d-da2f-43bc-b92b-25411388774a",
+    "raw_material_id": "265e0a4d-60c4-4e79-9f78-b524f18525b7",
+    "quantity_used": "0.05",
+    "created_at": "2026-08-05T11:44:16.264Z"
+  },
+  {
+    "id": "4191c07b-a3f4-4e79-9b38-5bc13a2c64c9",
+    "production_batch_id": "d385295d-da2f-43bc-b92b-25411388774a",
+    "raw_material_id": "f426eb60-25e3-43e0-8eb0-c59cbefbe7b1",
+    "quantity_used": "0.05",
+    "created_at": "2026-08-05T11:44:16.264Z"
+  },
+  {
+    "id": "eb68475f-2eb9-42c2-9859-53515f18adb0",
+    "production_batch_id": "d385295d-da2f-43bc-b92b-25411388774a",
+    "raw_material_id": "f67cdf49-726e-4015-a102-b51e0d69615f",
+    "quantity_used": "0.01",
+    "created_at": "2026-08-05T11:44:16.264Z"
+  },
+  {
+    "id": "c183cc29-f048-43d3-bf01-ecde327f30f1",
+    "production_batch_id": "69b5d8d7-cc40-4d4f-a979-0fc2fbb9528e",
+    "raw_material_id": "265e0a4d-60c4-4e79-9f78-b524f18525b7",
+    "quantity_used": "0.15",
+    "created_at": "2026-08-05T11:46:20.422Z"
+  },
+  {
+    "id": "cd650239-ee17-469b-ad48-6f69f6bd622d",
+    "production_batch_id": "69b5d8d7-cc40-4d4f-a979-0fc2fbb9528e",
+    "raw_material_id": "f426eb60-25e3-43e0-8eb0-c59cbefbe7b1",
+    "quantity_used": "0.14",
+    "created_at": "2026-08-05T11:46:20.422Z"
+  },
+  {
+    "id": "8e10aebb-1204-47cc-a621-648852b78cff",
+    "production_batch_id": "69b5d8d7-cc40-4d4f-a979-0fc2fbb9528e",
+    "raw_material_id": "f67cdf49-726e-4015-a102-b51e0d69615f",
+    "quantity_used": "0.02",
+    "created_at": "2026-08-05T11:46:20.422Z"
+  },
+  {
+    "id": "0e68ed50-25d8-4efc-b337-9669a5a56152",
+    "production_batch_id": "83f43d7a-1524-42df-b06a-72025e572945",
+    "raw_material_id": "265e0a4d-60c4-4e79-9f78-b524f18525b7",
+    "quantity_used": "0.38",
+    "created_at": "2026-08-12T08:10:14.196Z"
+  },
+  {
+    "id": "818a3512-f089-40c6-aba9-88d851e20e16",
+    "production_batch_id": "83f43d7a-1524-42df-b06a-72025e572945",
+    "raw_material_id": "f426eb60-25e3-43e0-8eb0-c59cbefbe7b1",
+    "quantity_used": "0.34",
+    "created_at": "2026-08-12T08:10:14.196Z"
+  },
+  {
+    "id": "63594b4b-6a0b-46e6-9e53-12c5a0aa261f",
+    "production_batch_id": "83f43d7a-1524-42df-b06a-72025e572945",
+    "raw_material_id": "f67cdf49-726e-4015-a102-b51e0d69615f",
+    "quantity_used": "0.04",
+    "created_at": "2026-08-12T08:10:14.196Z"
+  }
+]

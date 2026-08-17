@@ -1,0 +1,172 @@
+[
+  {
+    "id": "4e2d062c-a8f5-47e4-a4f9-255dcf592285",
+    "name": "Acme Corp",
+    "contact_person": "Alice Brown",
+    "email": null,
+    "phone": "9876543212",
+    "address": null,
+    "created_at": "2026-08-05T08:55:42.377Z",
+    "updated_at": "2026-08-05T08:55:42.377Z"
+  },
+  {
+    "id": "687500cc-3572-4b04-bff6-04f4e4e73446",
+    "name": "Global Industries",
+    "contact_person": "Bob White",
+    "email": null,
+    "phone": "9876543213",
+    "address": null,
+    "created_at": "2026-08-05T08:55:42.377Z",
+    "updated_at": "2026-08-05T08:55:42.377Z"
+  },
+  {
+    "id": "4b443ce1-5ba6-4a22-be24-7af12bd77f36",
+    "name": "Golite Con- Tech LLP",
+    "contact_person": null,
+    "email": null,
+    "phone": null,
+    "address": "HOUSE NO. GURUMITRA HOUSING SOCIETY, NALKESH ROAD BEHIND PETROL PUMP, TAL. SATANA, NAMPUR, Nashik",
+    "created_at": "2026-08-05T08:56:04.618Z",
+    "updated_at": "2026-08-05T08:56:04.618Z"
+  },
+  {
+    "id": "8142e334-6fd4-40a7-818d-d22a7cd9706c",
+    "name": "SRIKAR BUILDING MATERIALS(MH) PRIVATE LIMITED",
+    "contact_person": null,
+    "email": null,
+    "phone": "8411841106",
+    "address": "FLOOR 0, GAT NO. 272, SRIKAR BUILDING MATERIAL PVT LTD, AT-POST. KHOR, ZILHA PARISHAD PRIMARY SCHOOL MANEPISEVASTI, KHOR, Pune",
+    "created_at": "2026-08-05T08:56:04.618Z",
+    "updated_at": "2026-08-05T08:56:04.618Z"
+  },
+  {
+    "id": "ab73cfaa-4064-46b3-86e6-a9e6af978ce5",
+    "name": "Siporex India Pvt Ltd",
+    "contact_person": null,
+    "email": null,
+    "phone": null,
+    "address": "72-76 Industrial Estate, Mundhawa, Pune",
+    "created_at": "2026-08-05T08:56:04.618Z",
+    "updated_at": "2026-08-05T08:56:04.618Z"
+  },
+  {
+    "id": "106e2bd4-ed87-4a72-9b53-3e585c1ed693",
+    "name": "Jagadguru Bricks Pvt Ltd",
+    "contact_person": null,
+    "email": null,
+    "phone": "8600789999",
+    "address": "Office Add. SR No 288/1, 2/1/2 Uttareshwer Road, Jagatguru City, Lohagaon Pune, Gat No 238 Near MIDC, Markal Pune",
+    "created_at": "2026-08-05T08:56:04.618Z",
+    "updated_at": "2026-08-05T08:56:04.618Z"
+  },
+  {
+    "id": "f98725bb-eccf-49f4-b8e6-686da0f91877",
+    "name": "Firelight Infra Pvt Ltd",
+    "contact_person": null,
+    "email": null,
+    "phone": null,
+    "address": "Gat no 44/50, Navlakh Umbre, Jadhavwadi village, Talegaon MIDC, Pune-410507",
+    "created_at": "2026-08-05T08:56:04.618Z",
+    "updated_at": "2026-08-05T08:56:04.618Z"
+  },
+  {
+    "id": "4f119c44-27c2-4cdd-8464-d7e1dae74712",
+    "name": "Gazebo Blocks",
+    "contact_person": null,
+    "email": null,
+    "phone": "9324242417",
+    "address": "Survey No-120, Mankivali, Near Dolavali, Railway Station, Khopoli, Raigad, Maharashtra",
+    "created_at": "2026-08-05T08:56:04.618Z",
+    "updated_at": "2026-08-05T08:56:04.618Z"
+  },
+  {
+    "id": "0833578d-da26-49dc-a833-8649e5a24c71",
+    "name": "PROSKY INFRATECH",
+    "contact_person": null,
+    "email": null,
+    "phone": null,
+    "address": "SHOP NO. 910 ROONGTA FUTREX RD CIRCLE, GOVIND NAGAR, NASHIK",
+    "created_at": "2026-08-05T08:56:04.618Z",
+    "updated_at": "2026-08-05T08:56:04.618Z"
+  },
+  {
+    "id": "8f1aeb14-3970-4dea-9eac-edf00d0de593",
+    "name": "PUSHPAM ENTERPRISES",
+    "contact_person": null,
+    "email": null,
+    "phone": "8369170702",
+    "address": "THANE",
+    "created_at": "2026-08-05T08:56:04.618Z",
+    "updated_at": "2026-08-05T08:56:04.618Z"
+  },
+  {
+    "id": "5403a9e6-8afd-4fac-a036-7ae98e4f53c2",
+    "name": "Mithril Aerocon Private Limited",
+    "contact_person": null,
+    "email": null,
+    "phone": null,
+    "address": "09/10, 1st FLOOR, DATTATRAY APT., THORAT COLONY, LANE NO 14, PUNE 411 004",
+    "created_at": "2026-08-05T08:56:04.618Z",
+    "updated_at": "2026-08-05T08:56:04.618Z"
+  },
+  {
+    "id": "437d4af9-a4da-4139-b722-0d905f5deec4",
+    "name": "CONSTRO SOLUTIONS PVT LTD",
+    "contact_person": null,
+    "email": null,
+    "phone": null,
+    "address": "FACTORY - FIVE STAR MIDC AREA, GAT NO -580 SINNAR PUNE HIGHWAY, KHAMBALE PHATA, TAL SINNAR, DIST -NASHIK",
+    "created_at": "2026-08-05T08:56:04.618Z",
+    "updated_at": "2026-08-05T08:56:04.618Z"
+  },
+  {
+    "id": "dff56d05-7c17-4130-869b-a5b736fb64f8",
+    "name": "SHREERANG GREEN CONCEPT AAC BLOCKS PVT.LTD",
+    "contact_person": null,
+    "email": null,
+    "phone": "9146887770",
+    "address": "SURVEY NO. 316 & 317, AT POST. MHASA, TAL. MURBAD, DIST. THANE",
+    "created_at": "2026-08-05T08:56:04.618Z",
+    "updated_at": "2026-08-05T08:56:04.618Z"
+  },
+  {
+    "id": "b5f3ec3c-dbe0-4c84-9d7d-bd55675b1b87",
+    "name": "Vithoba Enterprises",
+    "contact_person": null,
+    "email": null,
+    "phone": null,
+    "address": "Plot No-7, Phase-III, Musalgaon-Sinnar",
+    "created_at": "2026-08-05T08:56:04.618Z",
+    "updated_at": "2026-08-05T08:56:04.618Z"
+  },
+  {
+    "id": "2a30e47a-5b80-4437-a1d5-2ef3b45788bf",
+    "name": "AEROGREEN BUILDING SOLUTIONS INDUSTRIES",
+    "contact_person": null,
+    "email": null,
+    "phone": "9700802595",
+    "address": "1ST FLOOR, RAJ AVENUE BUILDING, SECTOR-20, BEHIND-BHOOMI MALL, CBD - BELAPUR, Mumbai City, Maharashtra, 400614",
+    "created_at": "2026-08-05T08:56:04.618Z",
+    "updated_at": "2026-08-05T08:56:04.618Z"
+  },
+  {
+    "id": "a3cb342f-99eb-4a21-80f5-44baad189824",
+    "name": "SHANTAI TRADERS",
+    "contact_person": null,
+    "email": null,
+    "phone": null,
+    "address": "Nashik",
+    "created_at": "2026-08-05T08:56:04.618Z",
+    "updated_at": "2026-08-05T08:56:04.618Z"
+  },
+  {
+    "id": "aa65c3b9-0ae0-4af0-b76c-f7381fc2a160",
+    "name": "R V Enterrpises",
+    "contact_person": null,
+    "email": null,
+    "phone": "8308367060",
+    "address": "Plot No. 2, Flat No. 15, Survey No. 20/3D/5, Shyam Nest Apartment, Onkar Nagar, Nashik, Nashik, Maharashtra, 422222",
+    "created_at": "2026-08-05T08:56:04.618Z",
+    "updated_at": "2026-08-05T08:56:04.618Z"
+  }
+]

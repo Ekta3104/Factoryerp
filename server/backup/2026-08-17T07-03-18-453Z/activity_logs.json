@@ -1,0 +1,242 @@
+[
+  {
+    "id": "be9b3638-13af-4136-b0fc-2b582eff593d",
+    "user_id": "edb20ced-9acb-428c-a4d6-574d16dd7380",
+    "action": "CREATE",
+    "entity_type": "VEHICLE_INWARD",
+    "entity_id": "dd5adcd9-c636-4aaa-ab53-3a260c57ad2e",
+    "details": {
+      "inward": {
+        "id": "dd5adcd9-c636-4aaa-ab53-3a260c57ad2e",
+        "status": "Pending",
+        "remarks": null,
+        "exit_time": null,
+        "created_at": "2026-08-05T08:59:35.162Z",
+        "entry_time": "2026-08-05T08:58:00.000Z",
+        "updated_at": "2026-08-05T08:59:35.162Z",
+        "driver_name": "Harshal Vanhere ",
+        "supplier_id": "6116b713-6251-4c89-b37a-1cabdc48f82e",
+        "vehicle_number": "MH-15-CT-0531",
+        "raw_material_id": "265e0a4d-60c4-4e79-9f78-b524f18525b7",
+        "quantity_received": "8.00"
+      }
+    },
+    "created_at": "2026-08-05T08:59:35.162Z",
+    "updated_at": "2026-08-05T08:59:35.162Z"
+  },
+  {
+    "id": "b355cd64-2175-4c12-8905-867a4dc9b589",
+    "user_id": "edb20ced-9acb-428c-a4d6-574d16dd7380",
+    "action": "CREATE",
+    "entity_type": "VEHICLE_INWARD",
+    "entity_id": "22c3aa8f-c3d7-43ce-8d17-6d40bcf3a41c",
+    "details": {
+      "inward": {
+        "id": "22c3aa8f-c3d7-43ce-8d17-6d40bcf3a41c",
+        "status": "Pending",
+        "remarks": null,
+        "exit_time": null,
+        "created_at": "2026-08-05T09:00:30.618Z",
+        "entry_time": "2026-08-05T08:59:00.000Z",
+        "updated_at": "2026-08-05T09:00:30.618Z",
+        "driver_name": "Harshal Vanhere ",
+        "supplier_id": "033f91db-bb42-42d6-8ad7-bc0e71dbc6f0",
+        "vehicle_number": "MH-15-CT-0531",
+        "raw_material_id": "f67cdf49-726e-4015-a102-b51e0d69615f",
+        "quantity_received": "10.00"
+      }
+    },
+    "created_at": "2026-08-05T09:00:30.618Z",
+    "updated_at": "2026-08-05T09:00:30.618Z"
+  },
+  {
+    "id": "054cc504-0eac-4eca-b4f4-dd632286f5c3",
+    "user_id": "edb20ced-9acb-428c-a4d6-574d16dd7380",
+    "action": "CREATE",
+    "entity_type": "VEHICLE_INWARD",
+    "entity_id": "afecf178-b715-4657-b085-817964a6c42c",
+    "details": {
+      "inward": {
+        "id": "afecf178-b715-4657-b085-817964a6c42c",
+        "status": "Pending",
+        "remarks": null,
+        "exit_time": null,
+        "created_at": "2026-08-05T09:01:22.422Z",
+        "entry_time": "2026-08-05T09:00:00.000Z",
+        "updated_at": "2026-08-05T09:01:22.422Z",
+        "driver_name": "Harshal Vanhere ",
+        "supplier_id": "6116b713-6251-4c89-b37a-1cabdc48f82e",
+        "vehicle_number": "MH-15-CT-0531",
+        "raw_material_id": "f426eb60-25e3-43e0-8eb0-c59cbefbe7b1",
+        "quantity_received": "40.00"
+      }
+    },
+    "created_at": "2026-08-05T09:01:22.422Z",
+    "updated_at": "2026-08-05T09:01:22.422Z"
+  },
+  {
+    "id": "b0f3b706-429a-4a50-a26d-d45fb03efb28",
+    "user_id": "edb20ced-9acb-428c-a4d6-574d16dd7380",
+    "action": "CREATE",
+    "entity_type": "VEHICLE_INWARD",
+    "entity_id": "6d1dfb8a-853c-4bdb-83cf-f1f1bd52f6f4",
+    "details": {
+      "inward": {
+        "id": "6d1dfb8a-853c-4bdb-83cf-f1f1bd52f6f4",
+        "status": "Pending",
+        "remarks": null,
+        "exit_time": null,
+        "created_at": "2026-08-05T11:29:22.584Z",
+        "entry_time": "2026-08-05T11:28:00.000Z",
+        "updated_at": "2026-08-05T11:29:22.584Z",
+        "driver_name": "harsl",
+        "supplier_id": "8361113b-2c50-4b0f-9bd3-f86dd738ec58",
+        "vehicle_number": "1012",
+        "raw_material_id": "f67cdf49-726e-4015-a102-b51e0d69615f",
+        "quantity_received": "25.00"
+      }
+    },
+    "created_at": "2026-08-05T11:29:22.584Z",
+    "updated_at": "2026-08-05T11:29:22.584Z"
+  },
+  {
+    "id": "ce37563a-b6ab-466a-82a4-ecd827f1c422",
+    "user_id": "edb20ced-9acb-428c-a4d6-574d16dd7380",
+    "action": "CREATE",
+    "entity_type": "PRODUCTION",
+    "entity_id": "d385295d-da2f-43bc-b92b-25411388774a",
+    "details": {
+      "production": {
+        "id": "d385295d-da2f-43bc-b92b-25411388774a",
+        "shift": "Morning",
+        "status": "In Progress",
+        "machine": "cnc",
+        "remarks": null,
+        "end_time": null,
+        "created_at": "2026-08-05T11:44:16.264Z",
+        "formula_id": "9bf12b8e-4096-4b16-ac87-d7a239980064",
+        "start_time": null,
+        "updated_at": "2026-08-05T11:44:16.264Z",
+        "batch_number": "PRD-1785930256267",
+        "operator_name": "hr",
+        "quantity_used": null,
+        "production_date": "2026-08-05T00:00:00.000Z",
+        "raw_material_id": null,
+        "quantity_produced": "4.00",
+        "ready_material_id": "44af7a1f-0446-4fc7-abae-03e114f12606"
+      }
+    },
+    "created_at": "2026-08-05T11:44:16.264Z",
+    "updated_at": "2026-08-05T11:44:16.264Z"
+  },
+  {
+    "id": "fa0b5cf0-2f40-422e-91b1-c49d4b1d9af9",
+    "user_id": "edb20ced-9acb-428c-a4d6-574d16dd7380",
+    "action": "CREATE",
+    "entity_type": "PRODUCTION",
+    "entity_id": "69b5d8d7-cc40-4d4f-a979-0fc2fbb9528e",
+    "details": {
+      "production": {
+        "id": "69b5d8d7-cc40-4d4f-a979-0fc2fbb9528e",
+        "shift": "Morning",
+        "status": "In Progress",
+        "machine": "cnc",
+        "remarks": null,
+        "end_time": null,
+        "created_at": "2026-08-05T11:46:20.422Z",
+        "formula_id": "9bf12b8e-4096-4b16-ac87-d7a239980064",
+        "start_time": null,
+        "updated_at": "2026-08-05T11:46:20.422Z",
+        "batch_number": "PRD-1785930380425",
+        "operator_name": "ek",
+        "quantity_used": null,
+        "production_date": "2026-08-05T00:00:00.000Z",
+        "raw_material_id": null,
+        "quantity_produced": "12.00",
+        "ready_material_id": "44af7a1f-0446-4fc7-abae-03e114f12606"
+      }
+    },
+    "created_at": "2026-08-05T11:46:20.422Z",
+    "updated_at": "2026-08-05T11:46:20.422Z"
+  },
+  {
+    "id": "78511313-86f7-4242-912b-eb6ff6606caa",
+    "user_id": "edb20ced-9acb-428c-a4d6-574d16dd7380",
+    "action": "CREATE",
+    "entity_type": "DISPATCH",
+    "entity_id": "78c0c60e-b816-440a-a763-b39acb161abb",
+    "details": {
+      "dispatch": {
+        "id": "78c0c60e-b816-440a-a763-b39acb161abb",
+        "status": "Pending",
+        "remarks": null,
+        "created_at": "2026-08-05T11:48:53.045Z",
+        "updated_at": "2026-08-05T11:48:53.045Z",
+        "customer_id": "4e2d062c-a8f5-47e4-a4f9-255dcf592285",
+        "destination": "ng4",
+        "driver_name": "jbb",
+        "dispatch_date": "2026-08-05T11:48:00.000Z",
+        "vehicle_number": "102",
+        "ready_material_id": "44af7a1f-0446-4fc7-abae-03e114f12606",
+        "quantity_dispatched": "10.00"
+      }
+    },
+    "created_at": "2026-08-05T11:48:53.045Z",
+    "updated_at": "2026-08-05T11:48:53.045Z"
+  },
+  {
+    "id": "551636e2-3a9b-4349-8b7f-22ae80118a6f",
+    "user_id": "edb20ced-9acb-428c-a4d6-574d16dd7380",
+    "action": "CREATE",
+    "entity_type": "PRODUCTION",
+    "entity_id": "83f43d7a-1524-42df-b06a-72025e572945",
+    "details": {
+      "production": {
+        "id": "83f43d7a-1524-42df-b06a-72025e572945",
+        "shift": "Morning",
+        "status": "In Progress",
+        "machine": "",
+        "remarks": null,
+        "end_time": null,
+        "created_at": "2026-08-12T08:10:14.196Z",
+        "formula_id": "9bf12b8e-4096-4b16-ac87-d7a239980064",
+        "start_time": null,
+        "updated_at": "2026-08-12T08:10:14.196Z",
+        "batch_number": "PRD-1786522214194",
+        "operator_name": "",
+        "quantity_used": null,
+        "production_date": "2026-08-12T00:00:00.000Z",
+        "raw_material_id": null,
+        "quantity_produced": "30.00",
+        "ready_material_id": "44af7a1f-0446-4fc7-abae-03e114f12606"
+      }
+    },
+    "created_at": "2026-08-12T08:10:14.196Z",
+    "updated_at": "2026-08-12T08:10:14.196Z"
+  },
+  {
+    "id": "44d47be0-4f1c-4cc5-b6c2-d5e9053b9157",
+    "user_id": "edb20ced-9acb-428c-a4d6-574d16dd7380",
+    "action": "CREATE",
+    "entity_type": "DISPATCH",
+    "entity_id": "5c9585b6-0647-47fe-93bf-aea9d8fe77c4",
+    "details": {
+      "dispatch": {
+        "id": "5c9585b6-0647-47fe-93bf-aea9d8fe77c4",
+        "status": "Pending",
+        "remarks": null,
+        "created_at": "2026-08-12T08:10:55.508Z",
+        "updated_at": "2026-08-12T08:10:55.508Z",
+        "customer_id": "106e2bd4-ed87-4a72-9b53-3e585c1ed693",
+        "destination": "ngr",
+        "driver_name": "harsl",
+        "dispatch_date": "2026-08-12T08:10:00.000Z",
+        "vehicle_number": "779",
+        "ready_material_id": "44af7a1f-0446-4fc7-abae-03e114f12606",
+        "quantity_dispatched": "20.00"
+      }
+    },
+    "created_at": "2026-08-12T08:10:55.508Z",
+    "updated_at": "2026-08-12T08:10:55.508Z"
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "exported_at": "2026-08-17T07:03:21.739Z",
+  "tables": {
+    "activity_logs": 9,
+    "customers": 17,
+    "dispatches": 2,
+    "expenses": 18,
+    "formula_ingredients": 6,
+    "labour": 0,
+    "machine_maintenance": 0,
+    "product_formulas": 2,
+    "production_batch_materials": 9,
+    "production_batches": 3,
+    "raw_materials": 3,
+    "ready_materials": 2,
+    "suppliers": 3,
+    "units": 4,
+    "users": 1,
+    "vehicle_inwards": 4
+  }
+}

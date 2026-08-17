@@ -1,0 +1,32 @@
+[
+  {
+    "id": "265e0a4d-60c4-4e79-9f78-b524f18525b7",
+    "name": "Gypsum Powder",
+    "description": null,
+    "unit_id": "df06afa9-c26e-4042-b2a4-7c3ceeaf622d",
+    "current_stock": "7.43",
+    "reorder_level": "0.00",
+    "created_at": "2026-08-05T08:55:47.951Z",
+    "updated_at": "2026-08-12T08:10:14.196Z"
+  },
+  {
+    "id": "f426eb60-25e3-43e0-8eb0-c59cbefbe7b1",
+    "name": "Soil",
+    "description": null,
+    "unit_id": "df06afa9-c26e-4042-b2a4-7c3ceeaf622d",
+    "current_stock": "39.49",
+    "reorder_level": "0.00",
+    "created_at": "2026-08-05T08:55:47.951Z",
+    "updated_at": "2026-08-12T08:10:14.196Z"
+  },
+  {
+    "id": "f67cdf49-726e-4015-a102-b51e0d69615f",
+    "name": "Lime Powder",
+    "description": null,
+    "unit_id": "df06afa9-c26e-4042-b2a4-7c3ceeaf622d",
+    "current_stock": "34.95",
+    "reorder_level": "0.00",
+    "created_at": "2026-08-05T08:55:47.951Z",
+    "updated_at": "2026-08-12T08:10:14.196Z"
+  }
+]

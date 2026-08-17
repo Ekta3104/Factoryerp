@@ -1,0 +1,58 @@
+[
+  {
+    "id": "dd5adcd9-c636-4aaa-ab53-3a260c57ad2e",
+    "vehicle_number": "MH-15-CT-0531",
+    "driver_name": "Harshal Vanhere ",
+    "supplier_id": "6116b713-6251-4c89-b37a-1cabdc48f82e",
+    "raw_material_id": "265e0a4d-60c4-4e79-9f78-b524f18525b7",
+    "quantity_received": "8.00",
+    "entry_time": "2026-08-05T08:58:00.000Z",
+    "exit_time": null,
+    "status": "Pending",
+    "created_at": "2026-08-05T08:59:35.162Z",
+    "updated_at": "2026-08-05T08:59:35.162Z",
+    "remarks": null
+  },
+  {
+    "id": "22c3aa8f-c3d7-43ce-8d17-6d40bcf3a41c",
+    "vehicle_number": "MH-15-CT-0531",
+    "driver_name": "Harshal Vanhere ",
+    "supplier_id": "033f91db-bb42-42d6-8ad7-bc0e71dbc6f0",
+    "raw_material_id": "f67cdf49-726e-4015-a102-b51e0d69615f",
+    "quantity_received": "10.00",
+    "entry_time": "2026-08-05T08:59:00.000Z",
+    "exit_time": null,
+    "status": "Pending",
+    "created_at": "2026-08-05T09:00:30.618Z",
+    "updated_at": "2026-08-05T09:00:30.618Z",
+    "remarks": null
+  },
+  {
+    "id": "afecf178-b715-4657-b085-817964a6c42c",
+    "vehicle_number": "MH-15-CT-0531",
+    "driver_name": "Harshal Vanhere ",
+    "supplier_id": "6116b713-6251-4c89-b37a-1cabdc48f82e",
+    "raw_material_id": "f426eb60-25e3-43e0-8eb0-c59cbefbe7b1",
+    "quantity_received": "40.00",
+    "entry_time": "2026-08-05T09:00:00.000Z",
+    "exit_time": null,
+    "status": "Pending",
+    "created_at": "2026-08-05T09:01:22.422Z",
+    "updated_at": "2026-08-05T09:01:22.422Z",
+    "remarks": null
+  },
+  {
+    "id": "6d1dfb8a-853c-4bdb-83cf-f1f1bd52f6f4",
+    "vehicle_number": "1012",
+    "driver_name": "harsl",
+    "supplier_id": "8361113b-2c50-4b0f-9bd3-f86dd738ec58",
+    "raw_material_id": "f67cdf49-726e-4015-a102-b51e0d69615f",
+    "quantity_received": "25.00",
+    "entry_time": "2026-08-05T11:28:00.000Z",
+    "exit_time": null,
+    "status": "Pending",
+    "created_at": "2026-08-05T11:29:22.584Z",
+    "updated_at": "2026-08-05T11:29:22.584Z",
+    "remarks": null
+  }
+]

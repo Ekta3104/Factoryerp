@@ -1,0 +1,50 @@
+[
+  {
+    "id": "f04c9af3-8306-45c9-b37d-693ae5948b93",
+    "formula_id": "9bf12b8e-4096-4b16-ac87-d7a239980064",
+    "raw_material_id": "265e0a4d-60c4-4e79-9f78-b524f18525b7",
+    "quantity": "5.00",
+    "created_at": "2026-08-05T08:55:54.627Z",
+    "updated_at": "2026-08-05T08:55:54.627Z"
+  },
+  {
+    "id": "efe06462-bf6c-43e1-b363-a89c92b45b2e",
+    "formula_id": "9bf12b8e-4096-4b16-ac87-d7a239980064",
+    "raw_material_id": "f426eb60-25e3-43e0-8eb0-c59cbefbe7b1",
+    "quantity": "4.50",
+    "created_at": "2026-08-05T08:55:54.627Z",
+    "updated_at": "2026-08-05T08:55:54.627Z"
+  },
+  {
+    "id": "e3c43789-ef6e-4d5b-aab1-103b64bae423",
+    "formula_id": "9bf12b8e-4096-4b16-ac87-d7a239980064",
+    "raw_material_id": "f67cdf49-726e-4015-a102-b51e0d69615f",
+    "quantity": "0.50",
+    "created_at": "2026-08-05T08:55:54.627Z",
+    "updated_at": "2026-08-05T08:55:54.627Z"
+  },
+  {
+    "id": "af573bad-724c-4689-9046-f89dbf8e6d3d",
+    "formula_id": "54750d6e-f884-4261-b4a8-aa12b9a75675",
+    "raw_material_id": "265e0a4d-60c4-4e79-9f78-b524f18525b7",
+    "quantity": "7.00",
+    "created_at": "2026-08-05T08:55:54.627Z",
+    "updated_at": "2026-08-05T08:55:54.627Z"
+  },
+  {
+    "id": "8c85d0c5-b4f8-4468-8b97-d98a9cddd3fe",
+    "formula_id": "54750d6e-f884-4261-b4a8-aa12b9a75675",
+    "raw_material_id": "f426eb60-25e3-43e0-8eb0-c59cbefbe7b1",
+    "quantity": "2.50",
+    "created_at": "2026-08-05T08:55:54.627Z",
+    "updated_at": "2026-08-05T08:55:54.627Z"
+  },
+  {
+    "id": "69fd9871-79c6-43ae-9a00-d052070481c4",
+    "formula_id": "54750d6e-f884-4261-b4a8-aa12b9a75675",
+    "raw_material_id": "f67cdf49-726e-4015-a102-b51e0d69615f",
+    "quantity": "0.50",
+    "created_at": "2026-08-05T08:55:54.627Z",
+    "updated_at": "2026-08-05T08:55:54.627Z"
+  }
+]

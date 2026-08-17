@@ -28,14 +28,18 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-const dbConfig = {
-  user:     process.env.DB_USER     || 'postgres',
-  password: process.env.DB_PASSWORD || 'postgres',
-  host:     process.env.DB_HOST     || 'localhost',
-  port:     parseInt(process.env.DB_PORT || '5432', 10),
-  database: process.env.DB_NAME     || 'factoryerp',
-  ssl:      isProduction ? { rejectUnauthorized: false } : false,
-};
+// Prefer a single DATABASE_URL (e.g. Neon's connection string) when set;
+// fall back to the individual DB_* vars for local/dev use.
+const dbConfig = process.env.DATABASE_URL
+  ? { connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } }
+  : {
+      user:     process.env.DB_USER     || 'postgres',
+      password: process.env.DB_PASSWORD || 'postgres',
+      host:     process.env.DB_HOST     || 'localhost',
+      port:     parseInt(process.env.DB_PORT || '5432', 10),
+      database: process.env.DB_NAME     || 'factoryerp',
+      ssl:      isProduction ? { rejectUnauthorized: false } : false,
+    };
 
 // Ordered list of SQL migration files (relative to /database)
 const MIGRATIONS = [

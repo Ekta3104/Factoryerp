@@ -1,0 +1,30 @@
+[
+  {
+    "id": "dc7c31cb-6e01-4432-836b-2440e4a78fe1",
+    "name": "Bags",
+    "abbreviation": "bag",
+    "created_at": "2026-08-05T08:23:17.116Z",
+    "updated_at": "2026-08-05T08:23:17.116Z"
+  },
+  {
+    "id": "5feac36b-30df-433e-9787-4c56111f1688",
+    "name": "Kilograms",
+    "abbreviation": "kg",
+    "created_at": "2026-08-05T08:55:42.377Z",
+    "updated_at": "2026-08-05T08:55:42.377Z"
+  },
+  {
+    "id": "c84a739c-1b8b-40d1-8fb0-87b4e4475042",
+    "name": "Liters",
+    "abbreviation": "L",
+    "created_at": "2026-08-05T08:55:42.377Z",
+    "updated_at": "2026-08-05T08:55:42.377Z"
+  },
+  {
+    "id": "df06afa9-c26e-4042-b2a4-7c3ceeaf622d",
+    "name": "Tons",
+    "abbreviation": "t",
+    "created_at": "2026-08-05T08:55:47.951Z",
+    "updated_at": "2026-08-05T08:55:47.951Z"
+  }
+]
