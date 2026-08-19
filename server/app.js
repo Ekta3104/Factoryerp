@@ -11,9 +11,9 @@ import { notFound } from './middlewares/notFound.js';
 // Initialize Express app
 const app = express();
 
-const formattedCorsOrigin = config.corsOrigin 
-  ? new URL(config.corsOrigin).origin 
-  : 'https://jape-enterprises.vercel.app';
+const formattedCorsOrigin = config.corsOrigin
+  ? new URL(config.corsOrigin).origin
+  : 'https://erp.balwancement.com';
 
 // Global Middlewares
 app.use(helmet()); // Set security HTTP headers
